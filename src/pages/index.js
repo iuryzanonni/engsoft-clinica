@@ -1,9 +1,11 @@
 import React from "react";
 
+
 function Index() {
+
   return (
     <div>
-      <h2>Teste</h2>
+      <h2>Bem vindo a D1SN3Y M3D</h2>
       <p>
         Lorem Ipsum is simply dummy text of the printing and typesetting
         industry. Lorem Ipsum has been the industry's standard dummy text ever
