@@ -1,73 +1,40 @@
-import Header from "../components/header";
 import {
-    Switch,
     createMuiTheme,
-    ThemeProvider,
-    NoSsr,
     CssBaseline,
+    NoSsr,
+    Switch,
+    ThemeProvider,
 } from "@material-ui/core";
-import useDarkMode from "use-dark-mode";
+import { useState } from "react";
+import Header from "../components/header";
 
-import {
-    AppBar,
-    Toolbar,
-    IconButton,
-    Typography,
-    Button,
-} from "@material-ui/core";
-import Link from "next/link";
-import MenuIcon from "@material-ui/icons/Menu";
-
-export const darkTheme = createMuiTheme({
+const darkTheme = createMuiTheme({
     palette: {
         type: "dark",
     },
 });
-export const lightTheme = createMuiTheme({
+const lightTheme = createMuiTheme({
     palette: {
         type: "light",
     },
 });
 
 const App = ({ Component, pageProps }) => {
-    const darkMode = useDarkMode(false);
-    const themeConfig = darkMode ? darkTheme : lightTheme;
+    const [darkMode, setDarkMode] = useState(true);
+    const theme = darkMode ? darkTheme : lightTheme;
+
     return (
         <NoSsr>
-            <ThemeProvider theme={themeConfig}>
+            <ThemeProvider theme={theme}>
                 <CssBaseline />
 
-                <AppBar position="static">
-                    <Toolbar>
-                        <IconButton edge="start" aria-label="menu">
-                            <MenuIcon />
-                        </IconButton>
-                        <Typography variant="h6">News</Typography>
-                        <Link href="/login">
-                            <Button style={{ marginLeft: "auto" }}>
-                                fLogin
-                            </Button>
-                        </Link>
-                    </Toolbar>
-                </AppBar>
+                <Header
+                    darkMode={darkMode}
+                    toggleDarkMode={setDarkMode}
+                    theme={theme}
+                />
 
-                <div>
-                    <button type="button" onClick={darkMode.disable}>
-                        ☀
-                    </button>
-                    <Switch
-                        checked={darkMode.value}
-                        onChange={darkMode.toggle}
-                    />
-                    <button type="button" onClick={darkMode.enable}>
-                        ☾
-                    </button>
-                </div>
-                <div>
-                    oi, eu deveria restar em todas as paginas assim como o
-                    header
-                </div>
-                <Component {...pageProps} />
+                <Component theme={theme} {...pageProps} />
             </ThemeProvider>
         </NoSsr>
     );
