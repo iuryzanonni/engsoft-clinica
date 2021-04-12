@@ -7,7 +7,6 @@ async function InsertEndereco(request, response) {
             "cep",
             request.query.id
         );
-        console.log(request);
         return response.send(results);
     } catch (error) {
         return response.json({ message: error.message }).send(500);
