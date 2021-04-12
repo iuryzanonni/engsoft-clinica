@@ -10,6 +10,16 @@ const Header = ({ theme, darkMode, toggleDarkMode }) => {
             backgroundColor: theme.palette.background.paper,
             marginBottom: "30px",
         },
+        toolbar: {
+            display: "flex",
+            justifyContent: "space-between",
+            width: "100%",
+        },
+        buttonsContainer: {
+            display: "flex",
+            alignItems: "center",
+        },
+
         title: { color: theme.palette.text.primary },
         loginButton: { marginLeft: "auto" },
         link: { cursor: "pointer", zIndex: "2" },
@@ -17,21 +27,26 @@ const Header = ({ theme, darkMode, toggleDarkMode }) => {
 
     return (
         <AppBar style={style.appBar} position="fixed">
-            <Toolbar>
+            <Toolbar style={style.toolbar}>
                 <Link href="/">
                     <span style={style.link}>
                         <Image src="/assets/logo.svg" height={55} width={100} />
                     </span>
                 </Link>
-                <Link href="/login">
-                    <Button style={style.loginButton}>Login</Button>
-                </Link>
-                <WbSunnyIcon style={style.title} />
-                <Switch
-                    checked={darkMode}
-                    onChange={() => toggleDarkMode(!darkMode)}
-                />
-                <Brightness3Icon style={style.title} />
+                <span style={style.buttonsContainer}>
+                    <Link href="/gallery">
+                        <Button style={style.loginButton}>Galeria</Button>
+                    </Link>
+                    <Link href="/login">
+                        <Button style={style.loginButton}>Login</Button>
+                    </Link>
+                    <WbSunnyIcon style={style.title} />
+                    <Switch
+                        checked={darkMode}
+                        onChange={() => toggleDarkMode(!darkMode)}
+                    />
+                    <Brightness3Icon style={style.title} />
+                </span>
             </Toolbar>
         </AppBar>
     );
