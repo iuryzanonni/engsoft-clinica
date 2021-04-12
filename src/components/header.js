@@ -9,6 +9,7 @@ const Header = ({ theme, darkMode, toggleDarkMode }) => {
         appBar: {
             backgroundColor: theme.palette.background.paper,
             marginBottom: "30px",
+            position: "relative",
         },
         toolbar: {
             display: "flex",
