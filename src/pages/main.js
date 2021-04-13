@@ -13,8 +13,6 @@ export const getServerSideProps = withIronSession(
         const user = req.session.get("user");
 
         if (!user) {
-            res.statusCode = 404;
-            /* res.end(); */
             return { props: {} };
         }
 

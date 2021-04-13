@@ -1,8 +1,9 @@
-import { AppBar, Button, Switch, Toolbar } from "@material-ui/core";
+import { AppBar, Button, makeStyles, Switch, Toolbar } from "@material-ui/core";
 import Brightness3Icon from "@material-ui/icons/Brightness3";
 import WbSunnyIcon from "@material-ui/icons/WbSunny";
 import Image from "next/image";
 import Link from "next/link";
+import { header } from "../styles";
 
 const Header = ({ theme, darkMode, toggleDarkMode, user }) => {
     const style = {
@@ -26,6 +27,8 @@ const Header = ({ theme, darkMode, toggleDarkMode, user }) => {
         link: { cursor: "pointer", zIndex: "2" },
     };
 
+    console.log(user);
+
     return (
         <AppBar style={style.appBar} position="fixed">
             <Toolbar style={style.toolbar}>
@@ -38,21 +41,44 @@ const Header = ({ theme, darkMode, toggleDarkMode, user }) => {
                     <Link href="/gallery">
                         <Button style={style.loginButton}>Galeria</Button>
                     </Link>
-                    <Link href="/cadastro">
-                        <Button style={style.loginButton}>Cadastro</Button>
-                    </Link>
-                    <Link href="/funcionarios">
-                        <Button style={style.loginButton}>Funcionários</Button>
-                    </Link>
-                    <Link href="/pacientes">
-                        <Button style={style.loginButton}>Pacientes</Button>
-                    </Link>
-                    <Link href="/consultas">
-                        <Button style={style.loginButton}>Consultas</Button>
-                    </Link>
-                    <Link href="/enderecos">
-                        <Button style={style.loginButton}>Endereços</Button>
-                    </Link>
+                    {!user && (
+                        <>
+                            <Link href="/enderecos">
+                                <Button style={style.loginButton}>
+                                    Cadastrar Endereco
+                                </Button>
+                            </Link>
+                            <Link href="/consultas">
+                                <Button style={style.loginButton}>
+                                    Cadastrar consulta
+                                </Button>
+                            </Link>
+                        </>
+                    )}
+                    {user && (
+                        <>
+                            <Link href="/funcionarios">
+                                <Button style={style.loginButton}>
+                                    Funcionários
+                                </Button>
+                            </Link>
+                            <Link href="/pacientes">
+                                <Button style={style.loginButton}>
+                                    Pacientes
+                                </Button>
+                            </Link>
+                            <Link href="/consultas">
+                                <Button style={style.loginButton}>
+                                    Consultas
+                                </Button>
+                            </Link>
+                            <Link href="/enderecos">
+                                <Button style={style.loginButton}>
+                                    Endereços
+                                </Button>
+                            </Link>
+                        </>
+                    )}
                     <Link href="/login">
                         <Button style={style.loginButton}>Login</Button>
                     </Link>

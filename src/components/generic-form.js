@@ -45,7 +45,6 @@ const GenericForm = ({ type }) => {
                     crm: formCrm,
                     especialidade: formEspecialidade,
                     isMedico: type === "medico" ? true : false,
-                    codigo: 55,
                 });
                 break;
             case "paciente":
@@ -107,48 +106,6 @@ const GenericForm = ({ type }) => {
 
     return (
         <div className={formStyle.default}>
-            <div className={formStyle.default}>
-                <Button
-                    variant="outlined"
-                    onClick={() => {
-                        settype("medico");
-                    }}
-                >
-                    Medico
-                </Button>
-                <Button
-                    variant="outlined"
-                    onClick={() => {
-                        settype("funcionario");
-                    }}
-                >
-                    Funcionario
-                </Button>
-                <Button
-                    variant="outlined"
-                    onClick={() => {
-                        settype("paciente");
-                    }}
-                >
-                    Paciente
-                </Button>
-                <Button
-                    variant="outlined"
-                    onClick={() => {
-                        settype("endereco");
-                    }}
-                >
-                    Endereço
-                </Button>
-                <Button
-                    variant="outlined"
-                    onClick={() => {
-                        settype("consulta");
-                    }}
-                >
-                    Consulta
-                </Button>
-            </div>
             <div>
                 {["consulta"].includes(type) && (
                     <FormControl className={formStyle.item}>

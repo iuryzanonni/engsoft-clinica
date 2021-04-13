@@ -1,7 +1,53 @@
+import { Button } from "@material-ui/core";
+import { withIronSession } from "next-iron-session";
+import { useState } from "react";
+import GenericForm from "../components/generic-form";
 import GenericList from "../components/generic-list";
+import Header from "../components/header";
 
-const Consultas = (props) => {
-    return <GenericList type={"consulta"} />;
+export const getServerSideProps = withIronSession(
+    async ({ req, res }) => {
+        const user = req.session.get("user");
+
+        if (!user) {
+            res.statusCode = 403;
+            return { props: {} };
+        }
+
+        return {
+            props: { user },
+        };
+    },
+    {
+        cookieName: "MYSITECOOKIE",
+        cookieOptions: {
+            secure: process.env.NODE_ENV === "production" ? true : false,
+        },
+        password: process.env.APPLICATION_SECRET,
+    }
+);
+
+const Consultas = ({ theme, user, darkMode, setDarkMode }) => {
+    const [isCadastro, setIsCadastro] = useState(false);
+
+    return (
+        <>
+            <Header
+                theme={theme}
+                user={user}
+                darkMode={darkMode}
+                toggleDarkMode={setDarkMode}
+            />
+            {!isCadastro && (
+                <Button onClick={() => setIsCadastro(!isCadastro)}>
+                    Adicionar novo
+                </Button>
+            )}
+
+            {user && !isCadastro && <GenericList type="consulta" />}
+            {isCadastro && <GenericForm type="consulta" />}
+        </>
+    );
 };
 
 export default Consultas;

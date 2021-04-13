@@ -1,6 +1,7 @@
-import { makeStyles, Paper, Typography } from "@material-ui/core";
+import { Paper, Typography } from "@material-ui/core";
+import { withIronSession } from "next-iron-session";
 import Image from "next/image";
-import React from "react";
+import Header from "../components/header";
 import { defaultStyles } from "../styles";
 
 const Item = ({ item, index, style }) => (
@@ -35,7 +36,29 @@ const Item = ({ item, index, style }) => (
     </>
 );
 
-const Home = () => {
+export const getServerSideProps = withIronSession(
+    async ({ req, res }) => {
+        const user = req.session.get("user");
+
+        if (!user) {
+            res.statusCode = 403;
+            return { props: {} };
+        }
+
+        return {
+            props: { user },
+        };
+    },
+    {
+        cookieName: "MYSITECOOKIE",
+        cookieOptions: {
+            secure: process.env.NODE_ENV === "production" ? true : false,
+        },
+        password: process.env.APPLICATION_SECRET,
+    }
+);
+
+const Home = ({ theme, user, darkMode, setDarkMode }) => {
     const style = defaultStyles();
 
     const texts = [
@@ -61,6 +84,12 @@ const Home = () => {
 
     return (
         <>
+            <Header
+                theme={theme}
+                user={user}
+                darkMode={darkMode}
+                toggleDarkMode={setDarkMode}
+            />
             <section className={style.fastAnimation}>
                 <Paper className={style.background} elevation={24}>
                     <Typography
