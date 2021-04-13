@@ -2,10 +2,10 @@ import {
     createMuiTheme,
     CssBaseline,
     NoSsr,
-    Switch,
     ThemeProvider,
 } from "@material-ui/core";
 import { useState } from "react";
+import Footer from "../components/footer";
 import Header from "../components/header";
 
 const darkTheme = createMuiTheme({
@@ -13,6 +13,7 @@ const darkTheme = createMuiTheme({
         type: "dark",
     },
 });
+
 const lightTheme = createMuiTheme({
     palette: {
         type: "light",
@@ -33,8 +34,8 @@ const App = ({ Component, pageProps }) => {
                     toggleDarkMode={setDarkMode}
                     theme={theme}
                 />
-
                 <Component theme={theme} {...pageProps} />
+                <Footer />
             </ThemeProvider>
         </NoSsr>
     );
