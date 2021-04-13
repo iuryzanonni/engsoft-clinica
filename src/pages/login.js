@@ -3,12 +3,19 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { defaultStyles } from "../styles";
 import { Button, Grid, TextField, Typography } from "@material-ui/core";
+import MySnackBar from '../components/snackBar';
+import { snackBarSeverity } from '../helper'
+
 
 const SignInPage = () => {
     const style = defaultStyles();
     const router = useRouter();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
+    const [snackBarMessage, setSnackBarMessage] = useState("");
+    const [isOpenSnackBar, setIsOpenSnackBar] = useState(false);
+    const [severitySnackBar, setSeveritySnackBar] = useState(snackBarSeverity.SUCCESS);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -20,52 +27,68 @@ const SignInPage = () => {
         });
 
         if (response.ok) {
+            setSnackBarMessage("Logado com sucesso");
+            setSeveritySnackBar(snackBarSeverity.SUCCESS)
+            setIsOpenSnackBar(true)
             return router.push("/main");
+        } else {
+            setSnackBarMessage("Erro no login");
+            setSeveritySnackBar(snackBarSeverity.ERROR)
+            setIsOpenSnackBar(true)
         }
     };
 
     return (
-        <form className={style.divBox} onSubmit={handleSubmit}>
-            <Grid container direction="row" justify="space-between">
-                <Grid className={style.section} item>
-                    <Grid
-                        container
-                        direction="column"
-                        justify="flex-end"
-                        alignItems="center"
-                    >
-                        <Grid item>
-                            <TextField
-                                onChange={(e) => setEmail(e.target.value)}
-                                label="Email"
-                                variant="outlined"
-                                className={style.input}
-                                type="text"
-                            />
-                        </Grid>
+        <>
+            <form className={style.divBox} onSubmit={handleSubmit}>
+                <Grid container direction="row" justify="space-between">
+                    <Grid className={style.section} item>
+                        <Grid
+                            container
+                            direction="column"
+                            justify="flex-end"
+                            alignItems="center"
+                        >
 
-                        <Grid item>
-                            <TextField
-                                onChange={(e) => setPassword(e.target.value)}
-                                label="Senha"
-                                variant="outlined"
-                                className={style.input}
-                                type="password"
-                            />
-                        </Grid>
+                            <Grid item>
+                                <TextField
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    label="Email"
+                                    variant="outlined"
+                                    className={style.input}
+                                    type="text"
+                                />
+                            </Grid>
 
-                        <Grid item>
-                            <Button variant="contained" type="submit">
-                                Sign in
-                            </Button>
+                            <Grid item>
+                                <TextField
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    label="Senha"
+                                    variant="outlined"
+                                    className={style.input}
+                                    type="password"
+                                />
+                            </Grid>
+
+                            <Grid item>
+                                <Button variant="contained" type="submit">
+                                    Sign in
+                                </Button>
+                            </Grid>
                         </Grid>
                     </Grid>
+                    <Grid item>
+                        <Image src="/assets/logo.svg" height={275} width={500} />
+                    </Grid>
                 </Grid>
-                <Grid item>
-                    <Image src="/assets/logo.svg" height={275} width={500} />
-                </Grid>
-            </Grid>
-        </form>
+            </form>
+            <MySnackBar
+                open={isOpenSnackBar}
+                message={snackBarMessage}
+                severity={severitySnackBar}
+                setClose={setIsOpenSnackBar}
+            />
+        </>
     );
 };
 
