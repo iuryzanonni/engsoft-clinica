@@ -2,11 +2,11 @@ module.exports = {
     development: {
         client: "mysql",
         connection: {
-            host: process.env.MYSQL_HOST,
-            port: process.env.MYSQL_PORT,
-            database: process.env.MYSQL_DATABASE,
-            user: process.env.MYSQL_USERNAME,
-            password: process.env.MYSQL_PASSWORD,
+            host: "disney-med.ctslaxzrfqjd.us-east-1.rds.amazonaws.com",
+            port: 3306,
+            database: "DisneyMedical",
+            user: "admin",
+            password: "ihRT82wkOi0qhvoZvOqL",
         },
         pool: {
             min: 0,

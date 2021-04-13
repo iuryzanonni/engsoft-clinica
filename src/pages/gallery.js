@@ -21,11 +21,11 @@ const Item = ({ item, index, style }) => (
             <Image
                 src={`/assets/${index}.jpg`}
                 width="300px"
-                height="150px"
+                height="120px"
                 layout="responsive"
             />
         </Paper>
-        <Divider style={{ height: "10px", marginTop: "70px" }} />
+        <Divider style={{ height: "10px", marginTop: "50px" }} />
     </>
 );
 
