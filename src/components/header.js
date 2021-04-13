@@ -4,7 +4,7 @@ import WbSunnyIcon from "@material-ui/icons/WbSunny";
 import Image from "next/image";
 import Link from "next/link";
 
-const Header = ({ theme, darkMode, toggleDarkMode }) => {
+const Header = ({ theme, darkMode, toggleDarkMode, user }) => {
     const style = {
         appBar: {
             backgroundColor: theme.palette.background.paper,

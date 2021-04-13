@@ -7,6 +7,7 @@ import {
 import { useState } from "react";
 import Footer from "../components/footer";
 import Header from "../components/header";
+import { withIronSession } from "next-iron-session";
 
 const darkTheme = createMuiTheme({
     palette: {
@@ -20,22 +21,25 @@ const lightTheme = createMuiTheme({
     },
 });
 
-const App = ({ Component, pageProps }) => {
+const App = ({ Component, pageProps, user }) => {
     const [darkMode, setDarkMode] = useState(true);
     const theme = darkMode ? darkTheme : lightTheme;
 
     return (
         <NoSsr>
             <ThemeProvider theme={theme}>
-                <CssBaseline />
-
-                <Header
-                    darkMode={darkMode}
-                    toggleDarkMode={setDarkMode}
-                    theme={theme}
-                />
-                <Component theme={theme} {...pageProps} />
-                <Footer />
+                <div style={{ position: "relative", height: "100vh" }}>
+                    <CssBaseline />
+                    <Header
+                        darkMode={darkMode}
+                        toggleDarkMode={setDarkMode}
+                        theme={theme}
+                    />
+                    <div style={{ paddingBottom: "130px" }}>
+                        <Component {...pageProps} />
+                    </div>
+                    <Footer />
+                </div>
             </ThemeProvider>
         </NoSsr>
     );

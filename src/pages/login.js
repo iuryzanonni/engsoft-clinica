@@ -16,7 +16,7 @@ const SignInPage = () => {
         const response = await fetch("http://localhost:3000/api/sessions", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email, password })
+            body: JSON.stringify({ email, password }),
         });
 
         if (response.ok) {
@@ -25,18 +25,23 @@ const SignInPage = () => {
     };
 
     return (
-
         <form className={style.divBox} onSubmit={handleSubmit}>
             <Grid container direction="row" justify="space-between">
                 <Grid className={style.section} item>
-                    <Grid container direction="column" justify="flex-end" alignItems="center">
+                    <Grid
+                        container
+                        direction="column"
+                        justify="flex-end"
+                        alignItems="center"
+                    >
                         <Grid item>
                             <TextField
                                 onChange={(e) => setEmail(e.target.value)}
                                 label="Email"
                                 variant="outlined"
                                 className={style.input}
-                                type="text" />
+                                type="text"
+                            />
                         </Grid>
 
                         <Grid item>
@@ -45,13 +50,15 @@ const SignInPage = () => {
                                 label="Senha"
                                 variant="outlined"
                                 className={style.input}
-                                type="password" />
+                                type="password"
+                            />
                         </Grid>
 
                         <Grid item>
-                            <Button variant="contained" type="submit">Sign in</Button>
+                            <Button variant="contained" type="submit">
+                                Sign in
+                            </Button>
                         </Grid>
-
                     </Grid>
                 </Grid>
                 <Grid item>

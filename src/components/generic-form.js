@@ -9,19 +9,17 @@ import Button from "@material-ui/core/Button";
 import { post, get } from "../api-front";
 import {
     MuiPickersUtilsProvider,
-    KeyboardTimePicker,
     KeyboardDatePicker,
 } from "@material-ui/pickers";
 import React from "react";
-import { defaultStyles } from "../styles";
+import { defaultStyles, form } from "../styles";
 
 const GenericForm = ({ type }) => {
     // type: "funcionario", "medico", "paciente"
-    const style = defaultStyles();
-    const [currentType, setCurrentType] = useState(type);
+    const formStyle = form();
 
     const handleSendClick = () => {
-        switch (currentType) {
+        switch (type) {
             case "medico":
             case "funcionario":
                 post("funcionario", {
@@ -46,7 +44,7 @@ const GenericForm = ({ type }) => {
                     senha_hash: formSenha,
                     crm: formCrm,
                     especialidade: formEspecialidade,
-                    isMedico: currentType === "medico" ? true : false,
+                    isMedico: type === "medico" ? true : false,
                     codigo: 55,
                 });
                 break;
@@ -108,54 +106,55 @@ const GenericForm = ({ type }) => {
     const [optionsHour, setOptionsHour] = useState([]);
 
     return (
-        <>
+        <div className={formStyle.default}>
+            <div className={formStyle.default}>
+                <Button
+                    variant="outlined"
+                    onClick={() => {
+                        settype("medico");
+                    }}
+                >
+                    Medico
+                </Button>
+                <Button
+                    variant="outlined"
+                    onClick={() => {
+                        settype("funcionario");
+                    }}
+                >
+                    Funcionario
+                </Button>
+                <Button
+                    variant="outlined"
+                    onClick={() => {
+                        settype("paciente");
+                    }}
+                >
+                    Paciente
+                </Button>
+                <Button
+                    variant="outlined"
+                    onClick={() => {
+                        settype("endereco");
+                    }}
+                >
+                    Endereço
+                </Button>
+                <Button
+                    variant="outlined"
+                    onClick={() => {
+                        settype("consulta");
+                    }}
+                >
+                    Consulta
+                </Button>
+            </div>
             <div>
-                <div>
-                    <Button
-                        variant="outlined"
-                        onClick={() => {
-                            setCurrentType("medico");
-                        }}
-                    >
-                        Medico
-                    </Button>
-                    <Button
-                        variant="outlined"
-                        onClick={() => {
-                            setCurrentType("funcionario");
-                        }}
-                    >
-                        Funcionario
-                    </Button>
-                    <Button
-                        variant="outlined"
-                        onClick={() => {
-                            setCurrentType("paciente");
-                        }}
-                    >
-                        Paciente
-                    </Button>
-                    <Button
-                        variant="outlined"
-                        onClick={() => {
-                            setCurrentType("endereco");
-                        }}
-                    >
-                        Endereço
-                    </Button>
-                    <Button
-                        variant="outlined"
-                        onClick={() => {
-                            setCurrentType("consulta");
-                        }}
-                    >
-                        Consulta
-                    </Button>
-                </div>
-                {["consulta"].includes(currentType) && (
-                    <FormControl className={style.selectField}>
+                {["consulta"].includes(type) && (
+                    <FormControl className={formStyle.item}>
                         <InputLabel>Especialidade</InputLabel>
                         <Select
+                            className={formStyle.item}
                             label="Especialidade"
                             id="demo-simple-select"
                             value={formSelectEspecialidade}
@@ -173,8 +172,8 @@ const GenericForm = ({ type }) => {
                         </Select>
                     </FormControl>
                 )}
-                {["consulta"].includes(currentType) && (
-                    <FormControl className={style.selectField}>
+                {["consulta"].includes(type) && (
+                    <FormControl className={formStyle.item}>
                         <InputLabel>Médico</InputLabel>
                         <Select
                             label="Medico"
@@ -192,9 +191,10 @@ const GenericForm = ({ type }) => {
                         </Select>
                     </FormControl>
                 )}
-                {["consulta"].includes(currentType) && (
+                {["consulta"].includes(type) && (
                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
                         <KeyboardDatePicker
+                            className={formStyle.item}
                             disableToolbar
                             variant="outlined"
                             format="dd/MM/yyyy"
@@ -208,10 +208,11 @@ const GenericForm = ({ type }) => {
                         />
                     </MuiPickersUtilsProvider>
                 )}
-                {["consulta"].includes(currentType) && (
-                    <FormControl className={style.selectField}>
+                {["consulta"].includes(type) && (
+                    <FormControl className={formStyle.item}>
                         <InputLabel>Hora</InputLabel>
                         <Select
+                            className={formStyle.item}
                             label="Hora"
                             id="demo-simple-select"
                             value={formHoraConsulta}
@@ -228,9 +229,10 @@ const GenericForm = ({ type }) => {
                     </FormControl>
                 )}
                 {["funcionario", "medico", "paciente", "consulta"].includes(
-                    currentType
+                    type
                 ) && (
                     <TextField
+                        className={formStyle.item}
                         id="outlined-basic"
                         label="Nome"
                         variant="outlined"
@@ -241,9 +243,10 @@ const GenericForm = ({ type }) => {
                     />
                 )}
                 {["funcionario", "medico", "paciente", "consulta"].includes(
-                    currentType
+                    type
                 ) && (
                     <TextField
+                        className={formStyle.item}
                         id="outlined-basic"
                         label="Email"
                         variant="outlined"
@@ -254,9 +257,10 @@ const GenericForm = ({ type }) => {
                     />
                 )}
                 {["funcionario", "medico", "paciente", "consulta"].includes(
-                    currentType
+                    type
                 ) && (
                     <TextField
+                        className={formStyle.item}
                         id="outlined-basic"
                         label="Telefone"
                         variant="outlined"
@@ -267,9 +271,10 @@ const GenericForm = ({ type }) => {
                     />
                 )}
                 {["funcionario", "medico", "paciente", "endereco"].includes(
-                    currentType
+                    type
                 ) && (
                     <TextField
+                        className={formStyle.item}
                         id="outlined-basic"
                         label="CEP"
                         variant="outlined"
@@ -280,9 +285,10 @@ const GenericForm = ({ type }) => {
                     />
                 )}
                 {["funcionario", "medico", "paciente", "endereco"].includes(
-                    currentType
+                    type
                 ) && (
                     <TextField
+                        className={formStyle.item}
                         id="outlined-basic"
                         label="Logradouro"
                         variant="outlined"
@@ -293,9 +299,10 @@ const GenericForm = ({ type }) => {
                     />
                 )}
                 {["funcionario", "medico", "paciente", "endereco"].includes(
-                    currentType
+                    type
                 ) && (
                     <TextField
+                        className={formStyle.item}
                         id="outlined-basic"
                         label="Bairro"
                         variant="outlined"
@@ -306,9 +313,10 @@ const GenericForm = ({ type }) => {
                     />
                 )}
                 {["funcionario", "medico", "paciente", "endereco"].includes(
-                    currentType
+                    type
                 ) && (
                     <TextField
+                        className={formStyle.item}
                         id="outlined-basic"
                         label="Cidade"
                         variant="outlined"
@@ -319,9 +327,10 @@ const GenericForm = ({ type }) => {
                     />
                 )}
                 {["funcionario", "medico", "paciente", "endereco"].includes(
-                    currentType
+                    type
                 ) && (
                     <TextField
+                        className={formStyle.item}
                         id="outlined-basic"
                         label="Estado"
                         variant="outlined"
@@ -331,9 +340,10 @@ const GenericForm = ({ type }) => {
                         }}
                     />
                 )}
-                {["funcionario", "medico"].includes(currentType) && (
+                {["funcionario", "medico"].includes(type) && (
                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
                         <KeyboardDatePicker
+                            className={formStyle.item}
                             disableToolbar
                             variant="outlined"
                             format="dd/MM/yyyy"
@@ -347,8 +357,9 @@ const GenericForm = ({ type }) => {
                         />
                     </MuiPickersUtilsProvider>
                 )}
-                {["funcionario", "medico"].includes(currentType) && (
+                {["funcionario", "medico"].includes(type) && (
                     <TextField
+                        className={formStyle.item}
                         id="outlined-basic"
                         label="Salário"
                         variant="outlined"
@@ -358,9 +369,11 @@ const GenericForm = ({ type }) => {
                         }}
                     />
                 )}
-                {["funcionario", "medico"].includes(currentType) && (
+                {["funcionario", "medico"].includes(type) && (
                     <TextField
+                        className={formStyle.item}
                         id="outlined-basic"
+                        type="password"
                         label="Senha"
                         variant="outlined"
                         value={formSenha}
@@ -369,8 +382,9 @@ const GenericForm = ({ type }) => {
                         }}
                     />
                 )}
-                {["medico"].includes(currentType) && (
+                {["medico"].includes(type) && (
                     <TextField
+                        className={formStyle.item}
                         id="outlined-basic"
                         label="Especialidade"
                         variant="outlined"
@@ -380,8 +394,9 @@ const GenericForm = ({ type }) => {
                         }}
                     />
                 )}
-                {["medico"].includes(currentType) && (
+                {["medico"].includes(type) && (
                     <TextField
+                        className={formStyle.item}
                         id="outlined-basic"
                         label="CRM"
                         variant="outlined"
@@ -391,8 +406,9 @@ const GenericForm = ({ type }) => {
                         }}
                     />
                 )}
-                {["paciente"].includes(currentType) && (
+                {["paciente"].includes(type) && (
                     <TextField
+                        className={formStyle.item}
                         id="outlined-basic"
                         label="Peso"
                         variant="outlined"
@@ -402,8 +418,9 @@ const GenericForm = ({ type }) => {
                         }}
                     />
                 )}
-                {["paciente"].includes(currentType) && (
+                {["paciente"].includes(type) && (
                     <TextField
+                        className={formStyle.item}
                         id="outlined-basic"
                         label="Altura"
                         variant="outlined"
@@ -413,8 +430,9 @@ const GenericForm = ({ type }) => {
                         }}
                     />
                 )}
-                {["paciente"].includes(currentType) && (
+                {["paciente"].includes(type) && (
                     <TextField
+                        className={formStyle.item}
                         id="outlined-basic"
                         label="Tipo sanguíneo"
                         variant="outlined"
@@ -425,7 +443,7 @@ const GenericForm = ({ type }) => {
                     />
                 )}
             </div>
-            <div>
+            <div className={formStyle.buttons}>
                 <Button variant="outlined" onClick={() => {}}>
                     Limpar
                 </Button>
@@ -433,7 +451,7 @@ const GenericForm = ({ type }) => {
                     Enviar
                 </Button>
             </div>
-        </>
+        </div>
     );
 };
 

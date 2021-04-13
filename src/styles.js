@@ -25,7 +25,6 @@ export const defaultStyles = makeStyles((theme) => ({
         fontSize: "72px",
         bottom: "80px",
         zIndex: 1,
-        // color: "#404040",
         color: `${theme.palette.text.secondary}`,
     },
     subtitle: {
@@ -81,9 +80,7 @@ export const defaultStyles = makeStyles((theme) => ({
             transform: "translateX(0)",
         },
     },
-    selectField: {
-        minWidth: "120px",
-    },
+
     input: {
         justifyItems: "center",
         padding: "25px",
@@ -111,8 +108,12 @@ export const footer = makeStyles((theme) => ({
         justifyContent: "space-between",
         alignItems: "center",
         backgroundColor: theme.palette.background.paper,
-        marginTop: "30px",
+        marginTop: "50px",
         padding: "50px",
+        position: "absolute",
+        bottom: 0,
+        height: "25px",
+        width: "100%",
     },
     iconsContainer: { display: "flex" },
     icon: {
@@ -120,4 +121,19 @@ export const footer = makeStyles((theme) => ({
         width: "30px",
         marginRight: "30px",
     },
+}));
+
+export const form = makeStyles((theme) => ({
+    default: {
+        display: "flex",
+        flexDirection: "column",
+        position: "relative",
+        alignItems: "center",
+    },
+    buttons: {
+        display: "flex",
+        maxWidth: "300px",
+        width: "50vw",
+    },
+    item: { margin: "15px", marginLeft: 0, minWidth: "257px" },
 }));
