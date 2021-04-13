@@ -17,24 +17,39 @@ export const defaultStyles = makeStyles((theme) => ({
         margin: "auto",
         marginTop: "80px",
         backgroundColor: theme.palette.background.paper,
-        opacity: 0.8,
+        opacity: 0.7,
     },
     title: {
         position: "absolute",
         left: "20px",
         fontSize: "72px",
         bottom: "80px",
-        transition: "2s",
         zIndex: 1,
-        color: "#404040",
+        // color: "#404040",
+        color: `${theme.palette.text.secondary}`,
     },
     subtitle: {
         position: "absolute",
         left: "30px",
         bottom: "0",
-        transition: "2s",
         zIndex: 1,
-        color: "#f66",
+        color: `${theme.palette.text.primary}`,
+    },
+    titleDesc: {
+        top: "20%",
+    },
+    subtitleDesc: {
+        top: "30%",
+    },
+    description: {
+        position: "absolute",
+        fontSize: "30px",
+        width: "70%",
+        fontWeight: "bold",
+        left: "20px",
+        bottom: "20px",
+        zIndex: 1,
+        color: `${theme.palette.text.primary}`,
     },
     "@keyframes fadeIn": {
         "0%": {
@@ -82,9 +97,11 @@ export const defaultStyles = makeStyles((theme) => ({
         flexDirection: "column",
         width: "100vw",
         height: "85vh",
-
         alignItems: "center",
         justifyContent: "center",
+    },
+    image: {
+        opacity: 0.5,
     },
 }));
 
