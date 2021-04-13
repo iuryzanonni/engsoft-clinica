@@ -66,6 +66,9 @@ export const defaultStyles = makeStyles((theme) => ({
             transform: "translateX(0)",
         },
     },
+    selectField: {
+        minWidth: "120px",
+    },
     input: {
         justifyItems: "center",
         padding: "25px",
@@ -73,7 +76,6 @@ export const defaultStyles = makeStyles((theme) => ({
     },
     section: {
         width: "50vw",
-
     },
     divBox: {
         display: "flex",
@@ -83,8 +85,7 @@ export const defaultStyles = makeStyles((theme) => ({
 
         alignItems: "center",
         justifyContent: "center",
-    }
-
+    },
 }));
 
 export const footer = makeStyles((theme) => ({

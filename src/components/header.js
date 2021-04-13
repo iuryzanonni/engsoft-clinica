@@ -38,6 +38,9 @@ const Header = ({ theme, darkMode, toggleDarkMode }) => {
                     <Link href="/gallery">
                         <Button style={style.loginButton}>Galeria</Button>
                     </Link>
+                    <Link href="/cadastro">
+                        <Button style={style.loginButton}>Cadastro</Button>
+                    </Link>
                     <Link href="/login">
                         <Button style={style.loginButton}>Login</Button>
                     </Link>
