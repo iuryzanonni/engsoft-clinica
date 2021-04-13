@@ -87,3 +87,20 @@ export const defaultStyles = makeStyles((theme) => ({
         justifyContent: "center",
     },
 }));
+
+export const footer = makeStyles((theme) => ({
+    footer: {
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        backgroundColor: theme.palette.background.paper,
+        marginTop: "30px",
+        padding: "50px",
+    },
+    iconsContainer: { display: "flex" },
+    icon: {
+        height: "30px",
+        width: "30px",
+        marginRight: "30px",
+    },
+}));
