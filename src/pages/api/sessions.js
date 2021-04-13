@@ -8,8 +8,6 @@ export default withIronSession(
         try {
             if (req.method === "POST") {
                 const { email, password } = req.body;
-                console.log(email)
-                console.log(password)
                 if (email === VALID_EMAIL && password === VALID_PASSWORD) {
                     req.session.set("user", { email });
                     await req.session.save();
