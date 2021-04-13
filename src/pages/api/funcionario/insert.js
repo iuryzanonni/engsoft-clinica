@@ -36,7 +36,7 @@ async function InsertFuncionario(request, response) {
 
         return response.send(201);
     } catch (error) {
-        window.alert(error.message);
+        console.log(error.message);
         response.json({ message: error.message });
     }
 }
