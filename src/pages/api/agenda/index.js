@@ -1,6 +1,6 @@
 import database from "../../../database";
 
-async function InsertEndereco(request, response) {
+async function GetAgenda(request, response) {
     let results;
     try {
         results = await database.select().from("agenda");
@@ -10,4 +10,4 @@ async function InsertEndereco(request, response) {
     }
 }
 
-export default InsertEndereco;
+export default GetAgenda;

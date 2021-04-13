@@ -1,15 +1,13 @@
 import database from "../../../database";
 
-async function GetPaciente(request, response) {
+async function GetEspecialiadade(request, response) {
     let results;
     try {
-        results = await database("pessoa")
-            .join("paciente", "pessoa.codigo", "paciente.codigo")
-            .select();
+        results = await database("medico").distinct("especialidade");
         return response.send(results);
     } catch (error) {
         return response.json({ message: error.message }).send(500);
     }
 }
 
-export default GetPaciente;
+export default GetEspecialiadade;

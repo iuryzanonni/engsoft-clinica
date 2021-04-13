@@ -1,6 +1,6 @@
 import database from "../../../database";
 
-async function InsertEndereco(request, response) {
+async function GetFuncionario(request, response) {
     let results;
     try {
         results = await database("pessoa")
@@ -19,4 +19,4 @@ async function InsertEndereco(request, response) {
     }
 }
 
-export default InsertEndereco;
+export default GetFuncionario;

@@ -1,6 +1,6 @@
 import database from "../../../database";
 
-async function InsertEndereco(request, response) {
+async function InsertAgenda(request, response) {
     try {
         if (request.method == "POST") {
             await database("agenda").insert({
@@ -18,4 +18,4 @@ async function InsertEndereco(request, response) {
     }
 }
 
-export default InsertEndereco;
+export default InsertAgenda;

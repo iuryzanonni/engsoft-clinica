@@ -1,6 +1,6 @@
 import database from "../../../database";
 
-async function InsertEndereco(request, response) {
+async function GetLogin(request, response) {
     let model = {
         codigo: "",
         email: "",
@@ -39,4 +39,4 @@ async function InsertEndereco(request, response) {
     return response.send(model);
 }
 
-export default InsertEndereco;
+export default GetLogin;
