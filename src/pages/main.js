@@ -10,7 +10,6 @@ const PrivatePage = ({ user }) => (
 
 export const getServerSideProps = withIronSession(
     async ({ req, res }) => {
-        console.log(req);
         const user = req.session.get("user");
 
         if (!user) {
@@ -26,9 +25,9 @@ export const getServerSideProps = withIronSession(
     {
         cookieName: "MYSITECOOKIE",
         cookieOptions: {
-            secure: true
+            secure: process.env.NODE_ENV === "production" ? true : false
         },
-        password: '2gyZ3GDw3LHZQKDhPmPDL3sjREVRXPr8'
+        password: process.env.APPLICATION_SECRET
     }
 );
 

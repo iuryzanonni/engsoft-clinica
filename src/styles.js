@@ -66,4 +66,23 @@ export const defaultStyles = makeStyles((theme) => ({
             transform: "translateX(0)",
         },
     },
+    input: {
+        justifyItems: "center",
+        padding: "25px",
+        width: "350px",
+    },
+    section: {
+        width: "50vw",
+
+    },
+    divBox: {
+        display: "flex",
+        flexDirection: "column",
+        width: "100vw",
+        height: "85vh",
+
+        alignItems: "center",
+        justifyContent: "center",
+    }
+
 }));
