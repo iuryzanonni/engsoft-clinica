@@ -1,7 +1,6 @@
 import database from "../../../database";
 
 async function InsertFuncionario(request, response) {
-    console.log(request.body);
     try {
         await database("pessoa").insert({
             bairro: request.body.bairro,
@@ -37,6 +36,7 @@ async function InsertFuncionario(request, response) {
 
         return response.send(201);
     } catch (error) {
+        window.alert(error.message);
         response.json({ message: error.message });
     }
 }
