@@ -66,4 +66,7 @@ export const defaultStyles = makeStyles((theme) => ({
             transform: "translateX(0)",
         },
     },
+    selectField: {
+        minWidth: "120px",
+    },
 }));

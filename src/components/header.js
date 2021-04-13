@@ -9,6 +9,7 @@ const Header = ({ theme, darkMode, toggleDarkMode }) => {
         appBar: {
             backgroundColor: theme.palette.background.paper,
             marginBottom: "30px",
+            position: "relative",
         },
         toolbar: {
             display: "flex",
@@ -36,6 +37,9 @@ const Header = ({ theme, darkMode, toggleDarkMode }) => {
                 <span style={style.buttonsContainer}>
                     <Link href="/gallery">
                         <Button style={style.loginButton}>Galeria</Button>
+                    </Link>
+                    <Link href="/cadastro">
+                        <Button style={style.loginButton}>Cadastro</Button>
                     </Link>
                     <Link href="/login">
                         <Button style={style.loginButton}>Login</Button>
