@@ -2,7 +2,7 @@ exports.up = function (knex) {
     return knex.schema.createTable("medico", function (table) {
         table.string("especialidade").notNullable();
         table.string("crm").notNullable();
-        table.integer("codigo").primary();
+        table.integer("codigo").unsigned().primary();
         table.foreign("codigo").references("funcionario.codigo");
     });
 };

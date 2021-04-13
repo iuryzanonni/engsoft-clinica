@@ -3,7 +3,7 @@ exports.up = function (knex) {
         table.decimal("peso").notNullable();
         table.decimal("altura").notNullable();
         table.string("tipo_sanguineo").notNullable();
-        table.integer("codigo").primary();
+        table.integer("codigo").unsigned().primary();
         table.foreign("codigo").references("pessoa.codigo");
     });
 };

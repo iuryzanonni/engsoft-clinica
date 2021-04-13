@@ -1,6 +1,6 @@
 exports.up = function (knex) {
     return knex.schema.createTable("pessoa", function (table) {
-        table.integer("codigo").primary();
+        table.increments("codigo").primary();
         table.string("nome").notNullable();
         table.string("email").notNullable();
         table.string("telefone").notNullable();

@@ -3,7 +3,7 @@ exports.up = function (knex) {
         table.datetime("data_contrato").notNullable();
         table.decimal("salario").notNullable();
         table.string("senha_hash").notNullable();
-        table.integer("codigo").primary();
+        table.integer("codigo").unsigned().primary();
         table.foreign("codigo").references("pessoa.codigo");
     });
 };

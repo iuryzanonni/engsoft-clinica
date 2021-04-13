@@ -6,7 +6,7 @@ exports.up = function (knex) {
         table.string("email").notNullable();
         table.string("telefone").notNullable();
         table.integer("codigo").primary();
-        table.integer("codigoMedico").notNullable();
+        table.integer("codigoMedico").unsigned().notNullable();
         table.foreign("codigoMedico").references("medico.codigo");
     });
 };

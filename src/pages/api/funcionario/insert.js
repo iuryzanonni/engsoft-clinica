@@ -15,6 +15,8 @@ async function InsertFuncionario(request, response) {
                 telefone: request.body.telefone,
             });
 
+            let codigo = await database("pessoa").max("codigo as codigo");
+
             let insert =
                 "INSERT INTO funcionario values('" +
                 request.body.data_contrato +
@@ -23,13 +25,13 @@ async function InsertFuncionario(request, response) {
                 ", sha1('" +
                 request.body.senha_hash +
                 "')," +
-                request.body.codigo +
+                codigo[0].codigo +
                 ")";
             await database.raw(insert);
 
             if (request.body.isMedico == "true") {
                 await database("medico").insert({
-                    codigo: request.body.codigo,
+                    codigo: codigo[0].codigo,
                     crm: request.body.crm,
                     especialidade: request.body.especialidade,
                 });
