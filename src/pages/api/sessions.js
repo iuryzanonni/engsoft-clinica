@@ -14,6 +14,7 @@ export default withIronSession(
                     req.session.set("user", {
                         email,
                         isMedico: loginResponse.isMedico,
+                        codigo: loginResponse.codigo
                     });
                     await req.session.save();
                     return res.status(201).send("🤩 🤩");
