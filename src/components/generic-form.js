@@ -6,6 +6,7 @@ import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 import Button from "@material-ui/core/Button";
+import { post, get } from "../api-front";
 import {
     MuiPickersUtilsProvider,
     KeyboardTimePicker,
@@ -20,34 +21,69 @@ const GenericForm = ({ type }) => {
     const [currentType, setCurrentType] = useState(type);
 
     const handleSendClick = () => {
-        // postData(
-        //     formMedico,
-        //     formSelectEspecialidade,
-        //     formDataConsulta,
-        //     formHoraConsulta,
-        //     formNome,
-        //     formEmail,
-        //     formTelefone,
-        //     formCep,
-        //     formLogradouro,
-        //     formBairro,
-        //     formCidade,
-        //     formEstado,
-        //     formDataInicio,
-        //     formSalario,
-        //     formSenha,
-        //     formEspecialidade,
-        //     formCrm,
-        //     formPeso,
-        //     formAltura,
-        //     formTipoSanguineo
-        // );
+        switch (currentType) {
+            case "medico":
+            case "funcionario":
+                post("funcionario", {
+                    bairro: formBairro,
+                    cep: formCep,
+                    cidade: formCidade,
+                    email: formEmail,
+                    estado: formEstado,
+                    logradouro: formLogradouro,
+                    nome: formNome,
+                    telefone: formTelefone,
+                    data_contrato: `${new Date().getFullYear()}-${
+                        new Date().getMonth() + 1 < 10
+                            ? "0" + (new Date().getMonth() + 1)
+                            : new Date().getMonth() + 1
+                    }-${
+                        new Date().getDate() < 10
+                            ? "0" + new Date().getDate()
+                            : new Date().getDate()
+                    }`,
+                    salario: formSalario,
+                    senha_hash: formSenha,
+                    crm: formCrm,
+                    especialidade: formEspecialidade,
+                    isMedico: currentType === "medico" ? true : false,
+                    codigo: 55,
+                });
+                break;
+            case "paciente":
+                break;
+            case "endereco":
+                post("endereco", {
+                    bairro: formBairro,
+                    cep: formCep,
+                    cidade: formCidade,
+                    estado: formEstado,
+                    logradouro: formLogradouro,
+                });
+                break;
+            case "consulta":
+                break;
+            default:
+                break;
+        }
+    };
+
+    const handleSetFormSelectEspecialidade = (value) => {
+        setFormSelectEspecialidade(value);
+        // busca no back as options
+        setOptionsMedico([{ name: "teste", value: "yesye" }]);
+    };
+
+    const handleSetFormDataConsulta = (value) => {
+        setFormDataConsulta(value);
+        // busca no back as options
+        setOptionsHour([{ name: "10:00", value: "10:00" }]);
     };
 
     // states
     const [formMedico, setFormMedico] = useState("");
     const [formSelectEspecialidade, setFormSelectEspecialidade] = useState("");
-    const [formDataConsulta, setFormDataConsulta] = useState("");
+    const [formDataConsulta, setFormDataConsulta] = useState(new Date());
     const [formHoraConsulta, setFormHoraConsulta] = useState("");
     const [formNome, setFormNome] = useState("");
     const [formEmail, setFormEmail] = useState("");
@@ -57,7 +93,7 @@ const GenericForm = ({ type }) => {
     const [formBairro, setFormBairro] = useState("");
     const [formCidade, setFormCidade] = useState("");
     const [formEstado, setFormEstado] = useState("");
-    const [formDataInicio, setFormDataInicio] = useState("");
+    const [formDataInicio, setFormDataInicio] = useState(new Date());
     const [formSalario, setFormSalario] = useState("");
     const [formSenha, setFormSenha] = useState("");
     const [formEspecialidade, setFormEspecialidade] = useState("");
@@ -65,6 +101,11 @@ const GenericForm = ({ type }) => {
     const [formPeso, setFormPeso] = useState("");
     const [formAltura, setFormAltura] = useState("");
     const [formTipoSanguineo, setFormTipoSanguineo] = useState("");
+    const [optionsEspecialidade, setOptionsEspecialidade] = useState([
+        { name: "teste", value: "yesye" },
+    ]);
+    const [optionsMedico, setOptionsMedico] = useState([]);
+    const [optionsHour, setOptionsHour] = useState([]);
 
     return (
         <>
@@ -119,12 +160,16 @@ const GenericForm = ({ type }) => {
                             id="demo-simple-select"
                             value={formSelectEspecialidade}
                             onChange={(ev) => {
-                                setFormSelectEspecialidade(ev.target.value);
+                                handleSetFormSelectEspecialidade(
+                                    ev.target.value
+                                );
                             }}
                         >
-                            <MenuItem value={10}>Ten</MenuItem>
-                            <MenuItem value={20}>Twenty</MenuItem>
-                            <MenuItem value={30}>Thirty</MenuItem>
+                            {optionsEspecialidade.map((option) => (
+                                <MenuItem id={option.name} value={option.value}>
+                                    {option.name}
+                                </MenuItem>
+                            ))}
                         </Select>
                     </FormControl>
                 )}
@@ -139,9 +184,11 @@ const GenericForm = ({ type }) => {
                                 setFormMedico(ev.target.value);
                             }}
                         >
-                            <MenuItem value={10}>Ten</MenuItem>
-                            <MenuItem value={20}>Twenty</MenuItem>
-                            <MenuItem value={30}>Thirty</MenuItem>
+                            {optionsMedico.map((option) => (
+                                <MenuItem id={option.name} value={option.value}>
+                                    {option.name}
+                                </MenuItem>
+                            ))}
                         </Select>
                     </FormControl>
                 )}
@@ -156,7 +203,7 @@ const GenericForm = ({ type }) => {
                             label="Data da Consulta"
                             value={formDataConsulta}
                             onChange={(ev) => {
-                                setFormDataConsulta(ev.target.value);
+                                handleSetFormDataConsulta(ev);
                             }}
                         />
                     </MuiPickersUtilsProvider>
@@ -172,9 +219,11 @@ const GenericForm = ({ type }) => {
                                 setFormHoraConsulta(ev.target.value);
                             }}
                         >
-                            <MenuItem value={10}>Ten</MenuItem>
-                            <MenuItem value={20}>Twenty</MenuItem>
-                            <MenuItem value={30}>Thirty</MenuItem>
+                            {optionsHour.map((option) => (
+                                <MenuItem id={option.name} value={option.value}>
+                                    {option.name}
+                                </MenuItem>
+                            ))}
                         </Select>
                     </FormControl>
                 )}
@@ -293,7 +342,7 @@ const GenericForm = ({ type }) => {
                             label="Data Inicio"
                             value={formDataInicio}
                             onChange={(ev) => {
-                                setFormDataInicio(ev.target.value);
+                                setFormDataInicio(ev);
                             }}
                         />
                     </MuiPickersUtilsProvider>

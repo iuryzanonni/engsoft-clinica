@@ -17,7 +17,7 @@ const get = async (address, params = null) => {
 
 const post = async (address, data) => {
     const url = `${baseUrl}/${address}/insert`;
-
+    console.log("url");
     axios
         .post(url, data)
         .then(function (response) {
