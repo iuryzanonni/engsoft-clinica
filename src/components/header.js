@@ -41,6 +41,18 @@ const Header = ({ theme, darkMode, toggleDarkMode }) => {
                     <Link href="/cadastro">
                         <Button style={style.loginButton}>Cadastro</Button>
                     </Link>
+                    <Link href="/funcionarios">
+                        <Button style={style.loginButton}>Funcionários</Button>
+                    </Link>
+                    <Link href="/pacientes">
+                        <Button style={style.loginButton}>Pacientes</Button>
+                    </Link>
+                    <Link href="/consultas">
+                        <Button style={style.loginButton}>Consultas</Button>
+                    </Link>
+                    <Link href="/enderecos">
+                        <Button style={style.loginButton}>Endereços</Button>
+                    </Link>
                     <Link href="/login">
                         <Button style={style.loginButton}>Login</Button>
                     </Link>
