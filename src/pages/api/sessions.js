@@ -11,7 +11,10 @@ export default withIronSession(
                 const { email, password } = req.body;
                 let loginResponse = await GetLogin(password, email);
                 if (loginResponse.authentication) {
-                    req.session.set("user", { email, isMedico });
+                    req.session.set("user", {
+                        email,
+                        isMedico: loginResponse.isMedico,
+                    });
                     await req.session.save();
                     return res.status(201).send("🤩 🤩");
                 }
@@ -28,9 +31,9 @@ export default withIronSession(
     {
         cookieName: "MYSITECOOKIE",
         cookieOptions: {
-            secure: process.env.NODE_ENV === "production" ? true : false
+            secure: process.env.NODE_ENV === "production" ? true : false,
         },
-        password: process.env.APPLICATION_SECRET
+        password: process.env.APPLICATION_SECRET,
     }
 );
 

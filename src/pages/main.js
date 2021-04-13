@@ -14,20 +14,20 @@ export const getServerSideProps = withIronSession(
 
         if (!user) {
             res.statusCode = 404;
-            res.end();
+            /* res.end(); */
             return { props: {} };
         }
 
         return {
-            props: { user }
+            props: { user },
         };
     },
     {
         cookieName: "MYSITECOOKIE",
         cookieOptions: {
-            secure: process.env.NODE_ENV === "production" ? true : false
+            secure: process.env.NODE_ENV === "production" ? true : false,
         },
-        password: process.env.APPLICATION_SECRET
+        password: process.env.APPLICATION_SECRET,
     }
 );
 
