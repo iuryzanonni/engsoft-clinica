@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = "https://engsoft-clinica.vercel.app/api";
+const baseUrl = "http://localhost:3000/api";
 
 const get = async (address, params = null) => {
     let query = "?";
@@ -49,6 +49,8 @@ const login = async (email, password) => {
             message: response.data
         };
     } catch (ex) {
+        console.log(ex.response)
+        console.log(ex.request)
         console.log("LOGIN ERROR")
         console.log(ex);
         return {

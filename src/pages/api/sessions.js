@@ -1,9 +1,6 @@
 import { withIronSession } from "next-iron-session";
 import database from "../../database";
 
-const VALID_EMAIL = "leonardo@commitjr.com";
-const VALID_PASSWORD = "admin";
-
 export default withIronSession(
     async (req, res) => {
         try {
@@ -20,7 +17,7 @@ export default withIronSession(
                     return res.status(201).send("🤩 🤩");
                 }
 
-                return res.status(403).send(loginResponse.message);
+                return res.send(loginResponse.message).status(403);
             }
 
             return res.status(404).send("🤪 🤪 🤪");

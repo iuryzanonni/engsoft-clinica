@@ -29,7 +29,8 @@ export const getServerSideProps = withIronSession(
 
 const Consultas = ({ theme, user, darkMode, setDarkMode }) => {
     const [isCadastro, setIsCadastro] = useState(user ? false : true);
-
+    console.log("Consultas");
+    console.log(user);
     return (
         <>
             <Header
@@ -43,7 +44,7 @@ const Consultas = ({ theme, user, darkMode, setDarkMode }) => {
                 {isCadastro ? "Cancelar" : "Adicionar novo"}
             </Button>
 
-            {user && !isCadastro && <GenericList type="consulta" />}
+            {user && !isCadastro && <GenericList medicoCode={user.isMedico ? user.codigo : undefined} type="consulta" />}
             {isCadastro && <GenericForm type="consulta" />}
         </>
     );

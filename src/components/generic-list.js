@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Button from "@material-ui/core/Button";
 import { get, post } from "../api-front";
 
-const GenericList = ({ type }) => {
+const GenericList = ({ type, medicoCode }) => {
     const [tableRows, setTableRows] = useState([]);
 
     const parseRows = (rows, type) => {
@@ -37,8 +37,8 @@ const GenericList = ({ type }) => {
                             ? row.codigo
                             : ""
                         : row.cep
-                        ? row.cep
-                        : "",
+                            ? row.cep
+                            : "",
                 crm: row.crm ? row.crm : "",
                 especialidade: row.especialidade ? row.especialidade : "",
                 peso: row.peso ? row.peso : "",
@@ -63,13 +63,27 @@ const GenericList = ({ type }) => {
 
     useEffect(() => {
         if (type === "consulta") {
-            get("agenda").then((resp) =>
-                resp ? setTableRows(parseRows(resp, type)) : null
-            );
+            get("agenda").then((resp) => {
+                if (resp) {
+                    console.log("GENERIC LIST 1")
+                    if (medicoCode) {
+                        console.log(medicoCode)
+                        let filteredList = resp.filter((user) => user.codigoMedico === medicoCode)
+                        console.log(filteredList)
+                        setTableRows(parseRows(filteredList, type))
+                    } else {
+                        setTableRows(parseRows(resp, type))
+                    }
+                }
+            });
         } else
-            get(type).then((resp) =>
-                resp ? setTableRows(parseRows(resp, type)) : null
-            );
+            get(type).then((resp) => {
+                if (resp) {
+                    console.log("GENERIC LIST 2")
+                    console.log(resp)
+                    setTableRows(parseRows(resp, type))
+                }
+            });
     }, []);
 
     let columns = [];
@@ -139,6 +153,8 @@ const GenericList = ({ type }) => {
             ];
             break;
     }
+
+
 
     return (
         <>
