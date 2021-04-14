@@ -44,7 +44,7 @@ const GenericList = ({ type }) => {
                 peso: row.peso ? row.peso : "",
                 altura: row.altura ? row.altura : "",
                 tipoSanguineo: row.tipo_sanguineo ? row.tipo_sanguineo : "",
-                medico: row.codigoMedico ? row.codigoMedico : "",
+                medico: row.nomemedico ? row.nomemedico : "",
                 dataConsulta: row.data
                     ? `${new Date(row.data).getFullYear()}-${
                           new Date(row.data).getMonth() + 1 < 10
