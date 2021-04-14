@@ -215,7 +215,10 @@ const GenericForm = ({ type }) => {
                     {["consulta"].includes(type) && (
                         <div className={formStyle.item}>
                             <FormControl className={formStyle.item}>
-                                <InputLabel className={formStyle.item}>
+                                <InputLabel
+                                    style={{ marginLeft: "15px" }}
+                                    className={formStyle.item}
+                                >
                                     Especialidade
                                 </InputLabel>
                                 <Select
@@ -244,7 +247,9 @@ const GenericForm = ({ type }) => {
                     {["consulta"].includes(type) && (
                         <div className={formStyle.item}>
                             <FormControl className={formStyle.item}>
-                                <InputLabel>Médico</InputLabel>
+                                <InputLabel className={formStyle.item}>
+                                    Médico
+                                </InputLabel>
                                 <Select
                                     className={formStyle.item}
                                     label="Medico"
@@ -269,11 +274,13 @@ const GenericForm = ({ type }) => {
                     {["consulta"].includes(type) && (
                         <MuiPickersUtilsProvider utils={DateFnsUtils}>
                             <KeyboardDatePicker
-                                className={formStyle.item}
+                                style={{
+                                    marginBottom: "45px",
+                                    marginLeft: "20px",
+                                }}
                                 disableToolbar
                                 variant="outlined"
                                 format="dd/MM/yyyy"
-                                margin="normal"
                                 id="date-picker-inline"
                                 label="Data da Consulta"
                                 value={formDataConsulta}
@@ -286,7 +293,12 @@ const GenericForm = ({ type }) => {
                     {["consulta"].includes(type) && (
                         <div className={formStyle.item}>
                             <FormControl className={formStyle.item}>
-                                <InputLabel>Hora</InputLabel>
+                                <InputLabel
+                                    style={{ marginLeft: "15px" }}
+                                    className={formStyle.item}
+                                >
+                                    Hora
+                                </InputLabel>
                                 <Select
                                     className={formStyle.item}
                                     label="Hora"
