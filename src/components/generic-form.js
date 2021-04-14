@@ -215,8 +215,11 @@ const GenericForm = ({ type }) => {
                     {["consulta"].includes(type) && (
                         <div className={formStyle.item}>
                             <FormControl className={formStyle.item}>
-                                <InputLabel>Especialidade</InputLabel>
+                                <InputLabel style={{ minWidth: "200px" }}>
+                                    Especialidade
+                                </InputLabel>
                                 <Select
+                                    autoWidth={true}
                                     label="Especialidade"
                                     id="demo-simple-select"
                                     value={formSelectEspecialidade}
@@ -227,12 +230,14 @@ const GenericForm = ({ type }) => {
                                     }}
                                 >
                                     {optionsEspecialidade.map((option) => (
-                                        <MenuItem
-                                            id={option.especialidade}
-                                            value={option.especialidade}
-                                        >
-                                            {option.especialidade}
-                                        </MenuItem>
+                                        <div className={formStyle.item}>
+                                            <MenuItem
+                                                id={option.especialidade}
+                                                value={option.especialidade}
+                                            >
+                                                {option.especialidade}
+                                            </MenuItem>
+                                        </div>
                                     ))}
                                 </Select>
                             </FormControl>
