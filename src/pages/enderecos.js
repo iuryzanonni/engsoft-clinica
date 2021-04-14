@@ -28,7 +28,7 @@ export const getServerSideProps = withIronSession(
 );
 
 const Enderecos = ({ theme, user, darkMode, setDarkMode }) => {
-    const [isCadastro, setIsCadastro] = useState(false);
+    const [isCadastro, setIsCadastro] = useState(user ? false : true);
 
     return (
         <>
@@ -38,6 +38,7 @@ const Enderecos = ({ theme, user, darkMode, setDarkMode }) => {
                 darkMode={darkMode}
                 toggleDarkMode={setDarkMode}
             />
+
             <Button onClick={() => setIsCadastro(!isCadastro)}>
                 {isCadastro ? "Cancelar" : "Adicionar novo"}
             </Button>
