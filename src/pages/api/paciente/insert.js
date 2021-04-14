@@ -23,7 +23,7 @@ async function InsertPaciente(request, response) {
                 "," +
                 request.body.altura +
                 ",'" +
-                request.body.tipo_sanquineo +
+                request.body.tipo_sanguineo +
                 "'," +
                 codigo[0].codigo +
                 ")";

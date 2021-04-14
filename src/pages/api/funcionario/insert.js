@@ -29,7 +29,7 @@ async function InsertFuncionario(request, response) {
                 ")";
             await database.raw(insert);
 
-            if (request.body.isMedico == "true") {
+            if (request.body.isMedico) {
                 await database("medico").insert({
                     codigo: codigo[0].codigo,
                     crm: request.body.crm,
