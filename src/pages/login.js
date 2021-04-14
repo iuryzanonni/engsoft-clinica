@@ -7,9 +7,7 @@ import Header from "../components/header";
 import MySnackBar from "../components/snackBar";
 import { snackBarSeverity } from "../helper";
 import { defaultStyles } from "../styles";
-import { login } from '../api-front'
-
-
+import { login } from "../api-front";
 
 export const getServerSideProps = withIronSession(
     async ({ req, res }) => {
@@ -52,7 +50,7 @@ const SignInPage = ({ theme, user, darkMode, setDarkMode }) => {
             setSnackBarMessage("Logado com sucesso");
             setSeveritySnackBar(snackBarSeverity.SUCCESS);
             setIsOpenSnackBar(true);
-            return router.push("/");
+            window.open("https://engsoft-clinica.vercel.app/", "_blank");
         } else {
             setSnackBarMessage(response.message);
             setSeveritySnackBar(snackBarSeverity.ERROR);

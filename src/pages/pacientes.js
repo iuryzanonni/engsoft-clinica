@@ -44,6 +44,7 @@ const Pacientes = ({ theme, user, darkMode, setDarkMode }) => {
                     {isCadastro ? "Cancelar" : "Adicionar novo"}
                 </Button>
             )}
+
             {user && !isCadastro && <GenericList type="paciente" />}
             {user && isCadastro && <GenericForm type="paciente" />}
             {!user && <div>acesso negado</div>}

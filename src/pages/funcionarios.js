@@ -44,6 +44,7 @@ const Funcionarios = ({ theme, user, darkMode, setDarkMode }) => {
                     {isCadastro ? "Cancelar" : "Adicionar novo"}
                 </Button>
             )}
+
             {user && !isCadastro && <GenericList type="funcionario" />}
             {user && isCadastro && <GenericForm type="funcionario" />}
             {!user && <div>acesso negado</div>}

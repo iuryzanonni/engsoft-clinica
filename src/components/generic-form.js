@@ -16,7 +16,7 @@ import {
 } from "@material-ui/pickers";
 import React from "react";
 import { defaultStyles, form } from "../styles";
-import MySnackBar from '../components/snackBar'
+import MySnackBar from "../components/snackBar";
 import { snackBarSeverity } from "../helper";
 
 const GenericForm = ({ type }) => {
@@ -33,13 +33,13 @@ const GenericForm = ({ type }) => {
         setSnackBarMessage("Sucesso");
         setSeveritySnackBar(snackBarSeverity.SUCCESS);
         setIsOpenSnackBar(true);
-    }
+    };
 
     const setErrorSnackbar = () => {
         setSnackBarMessage("Ocorreu um erro!");
         setSeveritySnackBar(snackBarSeverity.ERROR);
         setIsOpenSnackBar(true);
-    }
+    };
 
     const handleSendClick = async () => {
         try {
@@ -55,22 +55,40 @@ const GenericForm = ({ type }) => {
                         logradouro: formLogradouro,
                         nome: formNome,
                         telefone: formTelefone,
-                        data_contrato: `${new Date().getFullYear()}-${new Date().getMonth() + 1 < 10
-                            ? "0" + (new Date().getMonth() + 1)
-                            : new Date().getMonth() + 1
-                            }-${new Date().getDate() < 10
-                                ? "0" + new Date().getDate()
-                                : new Date().getDate()
-                            }`,
+                        data_contrato: `${formDataInicio.getFullYear()}-${
+                            formDataInicio.getMonth() + 1 < 10
+                                ? "0" + (formDataInicio.getMonth() + 1)
+                                : formDataInicio.getMonth() + 1
+                        }-${
+                            formDataInicio.getDate() < 10
+                                ? "0" + formDataInicio.getDate()
+                                : formDataInicio.getDate()
+                        }`,
                         salario: formSalario,
                         senha_hash: formSenha,
                         crm: formCrm,
                         especialidade: formEspecialidade,
                         isMedico: isMedico,
-                    }).then(() => setSuccessSnackBar())
-                        .catch((error) => { setErrorSnackbar() });
+                    })
+                        .then(() => setSuccessSnackBar())
+                        .catch((error) => {
+                            setErrorSnackbar();
+                        });
                     break;
                 case "paciente":
+                    post("paciente", {
+                        bairro: formBairro,
+                        cep: formCep,
+                        cidade: formCidade,
+                        email: formEmail,
+                        estado: formEstado,
+                        logradouro: formLogradouro,
+                        nome: formNome,
+                        telefone: formTelefone,
+                        peso: formPeso,
+                        altura: formAltura.replace(",", "."),
+                        tipo_sanguineo: formTipoSanguineo,
+                    });
                     break;
                 case "endereco":
                     await post("endereco", {
@@ -79,20 +97,40 @@ const GenericForm = ({ type }) => {
                         cidade: formCidade,
                         estado: formEstado,
                         logradouro: formLogradouro,
-                    }).then(() => setSuccessSnackBar())
-                        .catch((error) => { setErrorSnackbar() });
+                    })
+                        .then(() => setSuccessSnackBar())
+                        .catch((error) => {
+                            setErrorSnackbar();
+                        });
                     break;
                 case "consulta":
+                    await post("agenda", {
+                        data: `${formDataConsulta.getFullYear()}-${
+                            formDataConsulta.getMonth() + 1 < 10
+                                ? "0" + (formDataConsulta.getMonth() + 1)
+                                : formDataConsulta.getMonth() + 1
+                        }-${
+                            formDataConsulta.getDate() < 10
+                                ? "0" + formDataConsulta.getDate()
+                                : formDataConsulta.getDate()
+                        }`,
+                        hora: formHoraConsulta,
+                        nome: formNome,
+                        email: formEmail,
+                        telefone: formTelefone,
+                        codigomedico: formMedico,
+                    })
+                        .then(() => setSuccessSnackBar())
+                        .catch((error) => {
+                            setErrorSnackbar();
+                        });
                     break;
                 default:
                     break;
             }
-
-
         } catch (ex) {
             setErrorSnackbar();
         }
-
     };
 
     const handleSetFormCep = (value) => {
@@ -125,8 +163,19 @@ const GenericForm = ({ type }) => {
 
     const handleSetFormDataConsulta = (value) => {
         setFormDataConsulta(value);
+        get("agenda/horarios", {
+            codigomedico: formMedico,
+            data: `${value.getFullYear()}-${
+                value.getMonth() + 1 < 10
+                    ? "0" + (value.getMonth() + 1)
+                    : value.getMonth() + 1
+            }-${
+                value.getDate() < 10 ? "0" + value.getDate() : value.getDate()
+            }`,
+        }).then((result) =>
+            setOptionsHour(result.map((value) => value.slice(0, 5)))
+        );
         // busca no back as options
-        setOptionsHour([{ name: "10:00", value: "10:00" }]);
     };
 
     // states
@@ -200,7 +249,10 @@ const GenericForm = ({ type }) => {
                                 }}
                             >
                                 {optionsMedico.map((option) => (
-                                    <MenuItem id={option.nome} value={option.nome}>
+                                    <MenuItem
+                                        id={option.nome}
+                                        value={option.codigo}
+                                    >
                                         {option.nome}
                                     </MenuItem>
                                 ))}
@@ -247,115 +299,115 @@ const GenericForm = ({ type }) => {
                     {["funcionario", "medico", "paciente", "consulta"].includes(
                         type
                     ) && (
-                            <TextField
-                                className={formStyle.item}
-                                id="outlined-basic"
-                                label="Nome"
-                                variant="outlined"
-                                value={formNome}
-                                onChange={(ev) => {
-                                    setFormNome(ev.target.value);
-                                }}
-                            />
-                        )}
+                        <TextField
+                            className={formStyle.item}
+                            id="outlined-basic"
+                            label="Nome"
+                            variant="outlined"
+                            value={formNome}
+                            onChange={(ev) => {
+                                setFormNome(ev.target.value);
+                            }}
+                        />
+                    )}
                     {["funcionario", "medico", "paciente", "consulta"].includes(
                         type
                     ) && (
-                            <TextField
-                                className={formStyle.item}
-                                id="outlined-basic"
-                                label="Email"
-                                variant="outlined"
-                                value={formEmail}
-                                onChange={(ev) => {
-                                    setFormEmail(ev.target.value);
-                                }}
-                            />
-                        )}
+                        <TextField
+                            className={formStyle.item}
+                            id="outlined-basic"
+                            label="Email"
+                            variant="outlined"
+                            value={formEmail}
+                            onChange={(ev) => {
+                                setFormEmail(ev.target.value);
+                            }}
+                        />
+                    )}
                     {["funcionario", "medico", "paciente", "consulta"].includes(
                         type
                     ) && (
-                            <TextField
-                                className={formStyle.item}
-                                id="outlined-basic"
-                                label="Telefone"
-                                variant="outlined"
-                                value={formTelefone}
-                                onChange={(ev) => {
-                                    setFormTelefone(ev.target.value);
-                                }}
-                            />
-                        )}
+                        <TextField
+                            className={formStyle.item}
+                            id="outlined-basic"
+                            label="Telefone"
+                            variant="outlined"
+                            value={formTelefone}
+                            onChange={(ev) => {
+                                setFormTelefone(ev.target.value);
+                            }}
+                        />
+                    )}
                     {["funcionario", "medico", "paciente", "endereco"].includes(
                         type
                     ) && (
-                            <TextField
-                                className={formStyle.item}
-                                id="outlined-basic"
-                                label="CEP"
-                                variant="outlined"
-                                value={formCep}
-                                onChange={(ev) => {
-                                    handleSetFormCep(ev.target.value);
-                                }}
-                            />
-                        )}
+                        <TextField
+                            className={formStyle.item}
+                            id="outlined-basic"
+                            label="CEP"
+                            variant="outlined"
+                            value={formCep}
+                            onChange={(ev) => {
+                                handleSetFormCep(ev.target.value);
+                            }}
+                        />
+                    )}
                     {["funcionario", "medico", "paciente", "endereco"].includes(
                         type
                     ) && (
-                            <TextField
-                                className={formStyle.item}
-                                id="outlined-basic"
-                                label="Logradouro"
-                                variant="outlined"
-                                value={formLogradouro}
-                                onChange={(ev) => {
-                                    setFormLogradouro(ev.target.value);
-                                }}
-                            />
-                        )}
+                        <TextField
+                            className={formStyle.item}
+                            id="outlined-basic"
+                            label="Logradouro"
+                            variant="outlined"
+                            value={formLogradouro}
+                            onChange={(ev) => {
+                                setFormLogradouro(ev.target.value);
+                            }}
+                        />
+                    )}
                     {["funcionario", "medico", "paciente", "endereco"].includes(
                         type
                     ) && (
-                            <TextField
-                                className={formStyle.item}
-                                id="outlined-basic"
-                                label="Bairro"
-                                variant="outlined"
-                                value={formBairro}
-                                onChange={(ev) => {
-                                    setFormBairro(ev.target.value);
-                                }}
-                            />
-                        )}
+                        <TextField
+                            className={formStyle.item}
+                            id="outlined-basic"
+                            label="Bairro"
+                            variant="outlined"
+                            value={formBairro}
+                            onChange={(ev) => {
+                                setFormBairro(ev.target.value);
+                            }}
+                        />
+                    )}
                     {["funcionario", "medico", "paciente", "endereco"].includes(
                         type
                     ) && (
-                            <TextField
-                                className={formStyle.item}
-                                id="outlined-basic"
-                                label="Cidade"
-                                variant="outlined"
-                                value={formCidade}
-                                onChange={(ev) => {
-                                    setFormCidade(ev.target.value);
-                                }}
-                            />
-                        )}
+                        <TextField
+                            className={formStyle.item}
+                            id="outlined-basic"
+                            label="Cidade"
+                            variant="outlined"
+                            value={formCidade}
+                            onChange={(ev) => {
+                                setFormCidade(ev.target.value);
+                            }}
+                        />
+                    )}
                     {["funcionario", "medico", "paciente", "endereco"].includes(
                         type
                     ) && (
-                            <TextField
-                                className={formStyle.item}
-                                id="outlined-basic"
-                                label="Estado"
-                                variant="outlined"
-                                value={formEstado}
-                                onChange={(ev) => {
-                                    setFormEstado(ev.target.value);
-                                }}
-                            />
-                        )}
+                        <TextField
+                            className={formStyle.item}
+                            id="outlined-basic"
+                            label="Estado"
+                            variant="outlined"
+                            value={formEstado}
+                            onChange={(ev) => {
+                                setFormEstado(ev.target.value);
+                            }}
+                        />
+                    )}
                     {["funcionario", "medico"].includes(type) && (
                         <MuiPickersUtilsProvider utils={DateFnsUtils}>
                             <KeyboardDatePicker
@@ -463,7 +515,9 @@ const GenericForm = ({ type }) => {
                             control={
                                 <Checkbox
                                     checked={isMedico}
-                                    onChange={() => handleSetIsMedico(!isMedico)}
+                                    onChange={() =>
+                                        handleSetIsMedico(!isMedico)
+                                    }
                                     name="checkedB"
                                     color="primary"
                                 />
@@ -473,7 +527,7 @@ const GenericForm = ({ type }) => {
                     )}
                 </div>
                 <div className={formStyle.buttons}>
-                    <Button variant="outlined" onClick={() => { }}>
+                    <Button variant="outlined" onClick={() => {}}>
                         Limpar
                     </Button>
                     <Button variant="outlined" onClick={handleSendClick}>

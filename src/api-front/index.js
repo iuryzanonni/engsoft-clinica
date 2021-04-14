@@ -31,7 +31,10 @@ const post = async (address, data) => {
 const login = async (email, password) => {
     try {
         const url = "/sessions";
-        let response = await axios.post(`${baseUrl}${url}`, { email, password });
+        let response = await axios.post(`${baseUrl}${url}`, {
+            email,
+            password,
+        });
 
         console.log("RESPONSE")
         console.log(response)
@@ -53,6 +56,6 @@ const login = async (email, password) => {
             message: "Senha incorreta"
         };
     }
-}
+};
 
 export { baseUrl, get, post, login };
