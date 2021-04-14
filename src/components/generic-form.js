@@ -55,14 +55,14 @@ const GenericForm = ({ type }) => {
                         logradouro: formLogradouro,
                         nome: formNome,
                         telefone: formTelefone,
-                        data_contrato: `${new Date().getFullYear()}-${
-                            new Date().getMonth() + 1 < 10
-                                ? "0" + (new Date().getMonth() + 1)
-                                : new Date().getMonth() + 1
+                        data_contrato: `${formDataInicio.getFullYear()}-${
+                            formDataInicio.getMonth() + 1 < 10
+                                ? "0" + (formDataInicio.getMonth() + 1)
+                                : formDataInicio.getMonth() + 1
                         }-${
-                            new Date().getDate() < 10
-                                ? "0" + new Date().getDate()
-                                : new Date().getDate()
+                            formDataInicio.getDate() < 10
+                                ? "0" + formDataInicio.getDate()
+                                : formDataInicio.getDate()
                         }`,
                         salario: formSalario,
                         senha_hash: formSenha,
@@ -104,6 +104,26 @@ const GenericForm = ({ type }) => {
                         });
                     break;
                 case "consulta":
+                    await post("agenda", {
+                        data: `${formDataConsulta.getFullYear()}-${
+                            formDataConsulta.getMonth() + 1 < 10
+                                ? "0" + (formDataConsulta.getMonth() + 1)
+                                : formDataConsulta.getMonth() + 1
+                        }-${
+                            formDataConsulta.getDate() < 10
+                                ? "0" + formDataConsulta.getDate()
+                                : formDataConsulta.getDate()
+                        }`,
+                        hora: formHoraConsulta,
+                        nome: formNome,
+                        email: formEmail,
+                        telefone: formTelefone,
+                        codigomedico: formMedico,
+                    })
+                        .then(() => setSuccessSnackBar())
+                        .catch((error) => {
+                            setErrorSnackbar();
+                        });
                     break;
                 default:
                     break;
@@ -143,8 +163,19 @@ const GenericForm = ({ type }) => {
 
     const handleSetFormDataConsulta = (value) => {
         setFormDataConsulta(value);
+        get("agenda/horarios", {
+            codigomedico: formMedico,
+            data: `${value.getFullYear()}-${
+                value.getMonth() + 1 < 10
+                    ? "0" + (value.getMonth() + 1)
+                    : value.getMonth() + 1
+            }-${
+                value.getDate() < 10 ? "0" + value.getDate() : value.getDate()
+            }`,
+        }).then((result) =>
+            setOptionsHour(result.map((value) => value.slice(0, 5)))
+        );
         // busca no back as options
-        setOptionsHour([{ name: "10:00", value: "10:00" }]);
     };
 
     // states
@@ -220,7 +251,7 @@ const GenericForm = ({ type }) => {
                                 {optionsMedico.map((option) => (
                                     <MenuItem
                                         id={option.nome}
-                                        value={option.nome}
+                                        value={option.codigo}
                                     >
                                         {option.nome}
                                     </MenuItem>
