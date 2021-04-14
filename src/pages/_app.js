@@ -30,11 +30,6 @@ const App = ({ Component, pageProps, user }) => {
             <ThemeProvider theme={theme}>
                 <div style={{ position: "relative", height: "100vh" }}>
                     <CssBaseline />
-                    {/* <Header
-                        darkMode={darkMode}
-                        toggleDarkMode={setDarkMode}
-                        theme={theme}
-                    /> */}
                     <div style={{ paddingBottom: "130px" }}>
                         <Component
                             {...pageProps}

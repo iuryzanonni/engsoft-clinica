@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import { Button, Grid, TextField } from "@material-ui/core";
+import { withIronSession } from "next-iron-session";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import React, { useState } from "react";
+import Header from "../components/header";
+import MySnackBar from "../components/snackBar";
+import { snackBarSeverity } from "../helper";
 import { defaultStyles } from "../styles";
-import { Button, Grid, TextField, Typography } from "@material-ui/core";
-import MySnackBar from '../components/snackBar';
-import { snackBarSeverity } from '../helper'
-import { withIronSession } from "next-iron-session";
-
 
 export const getServerSideProps = withIronSession(
     async ({ req, res }) => {
@@ -15,7 +15,7 @@ export const getServerSideProps = withIronSession(
         if (!user) {
             return { props: {} };
         }
-        req.session.destroy()
+        req.session.destroy();
         return {
             props: {},
         };
@@ -29,9 +29,7 @@ export const getServerSideProps = withIronSession(
     }
 );
 
-
-
-const SignInPage = () => {
+const SignInPage = ({ theme, user, darkMode, setDarkMode }) => {
     const style = defaultStyles();
     const router = useRouter();
     const [email, setEmail] = useState("");
@@ -39,7 +37,9 @@ const SignInPage = () => {
 
     const [snackBarMessage, setSnackBarMessage] = useState("");
     const [isOpenSnackBar, setIsOpenSnackBar] = useState(false);
-    const [severitySnackBar, setSeveritySnackBar] = useState(snackBarSeverity.SUCCESS);
+    const [severitySnackBar, setSeveritySnackBar] = useState(
+        snackBarSeverity.SUCCESS
+    );
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -52,18 +52,25 @@ const SignInPage = () => {
 
         if (response.ok) {
             setSnackBarMessage("Logado com sucesso");
-            setSeveritySnackBar(snackBarSeverity.SUCCESS)
-            setIsOpenSnackBar(true)
+            setSeveritySnackBar(snackBarSeverity.SUCCESS);
+            setIsOpenSnackBar(true);
             return router.push("/");
         } else {
             setSnackBarMessage("Erro no login");
-            setSeveritySnackBar(snackBarSeverity.ERROR)
-            setIsOpenSnackBar(true)
+            setSeveritySnackBar(snackBarSeverity.ERROR);
+            setIsOpenSnackBar(true);
         }
     };
 
     return (
         <>
+            <Header
+                theme={theme}
+                user={user}
+                darkMode={darkMode}
+                toggleDarkMode={setDarkMode}
+            />
+
             <form className={style.divBox} onSubmit={handleSubmit}>
                 <Grid container direction="row" justify="space-between">
                     <Grid className={style.section} item>
@@ -73,7 +80,6 @@ const SignInPage = () => {
                             justify="flex-end"
                             alignItems="center"
                         >
-
                             <Grid item>
                                 <TextField
                                     onChange={(e) => setEmail(e.target.value)}
@@ -86,7 +92,9 @@ const SignInPage = () => {
 
                             <Grid item>
                                 <TextField
-                                    onChange={(e) => setPassword(e.target.value)}
+                                    onChange={(e) =>
+                                        setPassword(e.target.value)
+                                    }
                                     label="Senha"
                                     variant="outlined"
                                     className={style.input}
@@ -102,7 +110,11 @@ const SignInPage = () => {
                         </Grid>
                     </Grid>
                     <Grid item>
-                        <Image src="/assets/logo.svg" height={275} width={500} />
+                        <Image
+                            src="/assets/logo.svg"
+                            height={275}
+                            width={500}
+                        />
                     </Grid>
                 </Grid>
             </form>

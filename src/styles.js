@@ -80,7 +80,6 @@ export const defaultStyles = makeStyles((theme) => ({
             transform: "translateX(0)",
         },
     },
-
     input: {
         justifyItems: "center",
         padding: "25px",
@@ -110,8 +109,6 @@ export const footer = makeStyles((theme) => ({
         backgroundColor: theme.palette.background.paper,
         marginTop: "50px",
         padding: "50px",
-        position: "absolute",
-        bottom: 0,
         height: "25px",
         width: "100%",
     },
