@@ -132,5 +132,5 @@ export const form = makeStyles((theme) => ({
         alignItems: "center",
         flexWrap: "wrap",
     },
-    item: { margin: "15px", marginLeft: 0, minWidth: "257px" },
+    item: { margin: "15px", minWidth: "257px" },
 }));
