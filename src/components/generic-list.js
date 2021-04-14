@@ -19,16 +19,14 @@ const GenericList = ({ type, medicoCode }) => {
                 cidade: row.cidade ? row.cidade : "",
                 estado: row.estado ? row.estado : "",
                 dataInicio: row.data_contrato
-                    ? `${new Date(row.data_contrato).getFullYear()}-${
-                          new Date(row.data_contrato).getMonth() + 1 < 10
-                              ? "0" +
-                                (new Date(row.data_contrato).getMonth() + 1)
-                              : new Date(row.data_contrato).getMonth() + 1
-                      }-${
-                          new Date(row.data_contrato).getDate() < 10
-                              ? "0" + new Date(row.data_contrato).getDate()
-                              : new Date(row.data_contrato).getDate()
-                      }`
+                    ? `${new Date(row.data_contrato).getFullYear()}-${new Date(row.data_contrato).getMonth() + 1 < 10
+                        ? "0" +
+                        (new Date(row.data_contrato).getMonth() + 1)
+                        : new Date(row.data_contrato).getMonth() + 1
+                    }-${new Date(row.data_contrato).getDate() < 10
+                        ? "0" + new Date(row.data_contrato).getDate()
+                        : new Date(row.data_contrato).getDate()
+                    }`
                     : "",
                 salario: row.salario ? row.salario : "",
                 id:
@@ -46,15 +44,13 @@ const GenericList = ({ type, medicoCode }) => {
                 tipoSanguineo: row.tipo_sanguineo ? row.tipo_sanguineo : "",
                 medico: row.nomemedico ? row.nomemedico : "",
                 dataConsulta: row.data
-                    ? `${new Date(row.data).getFullYear()}-${
-                          new Date(row.data).getMonth() + 1 < 10
-                              ? "0" + (new Date(row.data).getMonth() + 1)
-                              : new Date(row.data).getMonth() + 1
-                      }-${
-                          new Date(row.data).getDate() < 10
-                              ? "0" + new Date(row.data).getDate()
-                              : new Date(row.data).getDate()
-                      }`
+                    ? `${new Date(row.data).getFullYear()}-${new Date(row.data).getMonth() + 1 < 10
+                        ? "0" + (new Date(row.data).getMonth() + 1)
+                        : new Date(row.data).getMonth() + 1
+                    }-${new Date(row.data).getDate() < 10
+                        ? "0" + new Date(row.data).getDate()
+                        : new Date(row.data).getDate()
+                    }`
                     : "",
                 hora: row.hora ? row.hora.slice(0, 5) : "",
             };

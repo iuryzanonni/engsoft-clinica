@@ -22,7 +22,7 @@ const lightTheme = createMuiTheme({
 });
 
 const App = ({ Component, pageProps, user }) => {
-    const [darkMode, setDarkMode] = useState(true);
+    const [darkMode, setDarkMode] = useState(false);
     const theme = darkMode ? darkTheme : lightTheme;
     console.log(user);
     return (
