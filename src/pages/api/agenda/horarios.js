@@ -19,7 +19,10 @@ async function GetHorarios(request, response) {
         results = await database
             .select("hora")
             .from("agenda")
-            .where("codigoMedico", request.body.codigomedico)
+            .where({
+                codigoMedico: request.query.codigomedico,
+                data: request.query.data,
+            })
             .orderBy("hora", "asc");
 
         let model = horarios.filter(
