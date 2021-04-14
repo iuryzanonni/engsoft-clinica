@@ -135,5 +135,10 @@ export const form = makeStyles((theme) => ({
         maxWidth: "300px",
         width: "50vw",
     },
+    box: {
+        display: "flex",
+        alignItems: "center",
+        flexWrap: "wrap",
+    },
     item: { margin: "15px", marginLeft: 0, minWidth: "257px" },
 }));
