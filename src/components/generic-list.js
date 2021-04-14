@@ -20,7 +20,14 @@ const GenericList = ({ type }) => {
                 estado: row.estado ? row.estado : "",
                 dataInicio: row.data_contrato ? row.data_contrato : "",
                 salario: row.salario ? row.salario : "",
-                id: row.codigo ? row.codigo : "",
+                id:
+                    type !== "endereco"
+                        ? row.codigo
+                            ? row.codigo
+                            : ""
+                        : row.cep
+                        ? row.cep
+                        : "",
                 crm: row.crm ? row.crm : "",
                 especialidade: row.especialidade ? row.especialidade : "",
                 peso: row.peso ? row.peso : "",

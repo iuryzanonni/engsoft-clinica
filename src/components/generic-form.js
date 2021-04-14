@@ -51,6 +51,19 @@ const GenericForm = ({ type }) => {
                 });
                 break;
             case "paciente":
+                post("paciente", {
+                    bairro: formBairro,
+                    cep: formCep,
+                    cidade: formCidade,
+                    email: formEmail,
+                    estado: formEstado,
+                    logradouro: formLogradouro,
+                    nome: formNome,
+                    telefone: formTelefone,
+                    peso: formPeso,
+                    altura: formAltura.replace(",", "."),
+                    tipo_sanguineo: formTipoSanguineo,
+                });
                 break;
             case "endereco":
                 post("endereco", {
