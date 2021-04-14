@@ -213,51 +213,54 @@ const GenericForm = ({ type }) => {
             <div className={formStyle.default}>
                 <div className={formStyle.box}>
                     {["consulta"].includes(type) && (
-                        <FormControl className={formStyle.item}>
-                            <InputLabel>Especialidade</InputLabel>
-                            <Select
-                                className={formStyle.item}
-                                label="Especialidade"
-                                id="demo-simple-select"
-                                value={formSelectEspecialidade}
-                                onChange={(ev) => {
-                                    handleSetFormSelectEspecialidade(
-                                        ev.target.value
-                                    );
-                                }}
-                            >
-                                {optionsEspecialidade.map((option) => (
-                                    <MenuItem
-                                        id={option.especialidade}
-                                        value={option.especialidade}
-                                    >
-                                        {option.especialidade}
-                                    </MenuItem>
-                                ))}
-                            </Select>
-                        </FormControl>
+                        <div className={formStyle.item}>
+                            <FormControl className={formStyle.item}>
+                                <InputLabel>Especialidade</InputLabel>
+                                <Select
+                                    label="Especialidade"
+                                    id="demo-simple-select"
+                                    value={formSelectEspecialidade}
+                                    onChange={(ev) => {
+                                        handleSetFormSelectEspecialidade(
+                                            ev.target.value
+                                        );
+                                    }}
+                                >
+                                    {optionsEspecialidade.map((option) => (
+                                        <MenuItem
+                                            id={option.especialidade}
+                                            value={option.especialidade}
+                                        >
+                                            {option.especialidade}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                        </div>
                     )}
                     {["consulta"].includes(type) && (
-                        <FormControl className={formStyle.item}>
-                            <InputLabel>Médico</InputLabel>
-                            <Select
-                                label="Medico"
-                                id="demo-simple-select"
-                                value={formMedico}
-                                onChange={(ev) => {
-                                    setFormMedico(ev.target.value);
-                                }}
-                            >
-                                {optionsMedico.map((option) => (
-                                    <MenuItem
-                                        id={option.nome}
-                                        value={option.codigo}
-                                    >
-                                        {option.nome}
-                                    </MenuItem>
-                                ))}
-                            </Select>
-                        </FormControl>
+                        <div className={formStyle.item}>
+                            <FormControl className={formStyle.item}>
+                                <InputLabel>Médico</InputLabel>
+                                <Select
+                                    label="Medico"
+                                    id="demo-simple-select"
+                                    value={formMedico}
+                                    onChange={(ev) => {
+                                        setFormMedico(ev.target.value);
+                                    }}
+                                >
+                                    {optionsMedico.map((option) => (
+                                        <MenuItem
+                                            id={option.nome}
+                                            value={option.codigo}
+                                        >
+                                            {option.nome}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                        </div>
                     )}
                     {["consulta"].includes(type) && (
                         <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -277,136 +280,154 @@ const GenericForm = ({ type }) => {
                         </MuiPickersUtilsProvider>
                     )}
                     {["consulta"].includes(type) && (
-                        <FormControl className={formStyle.item}>
-                            <InputLabel>Hora</InputLabel>
-                            <Select
+                        <div className={formStyle.item}>
+                            <FormControl className={formStyle.item}>
+                                <InputLabel>Hora</InputLabel>
+                                <Select
+                                    className={formStyle.item}
+                                    label="Hora"
+                                    id="demo-simple-select"
+                                    value={formHoraConsulta}
+                                    onChange={(ev) => {
+                                        setFormHoraConsulta(ev.target.value);
+                                    }}
+                                >
+                                    {optionsHour.map((option) => (
+                                        <MenuItem id={option} value={option}>
+                                            {option}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                        </div>
+                    )}
+                    {["funcionario", "medico", "paciente", "consulta"].includes(
+                        type
+                    ) && (
+                        <div className={formStyle.item}>
+                            <TextField
                                 className={formStyle.item}
-                                label="Hora"
-                                id="demo-simple-select"
-                                value={formHoraConsulta}
+                                id="outlined-basic"
+                                label="Nome"
+                                variant="outlined"
+                                value={formNome}
                                 onChange={(ev) => {
-                                    setFormHoraConsulta(ev.target.value);
+                                    setFormNome(ev.target.value);
                                 }}
-                            >
-                                {optionsHour.map((option) => (
-                                    <MenuItem id={option} value={option}>
-                                        {option}
-                                    </MenuItem>
-                                ))}
-                            </Select>
-                        </FormControl>
+                            />
+                        </div>
                     )}
                     {["funcionario", "medico", "paciente", "consulta"].includes(
                         type
                     ) && (
-                        <TextField
-                            className={formStyle.item}
-                            id="outlined-basic"
-                            label="Nome"
-                            variant="outlined"
-                            value={formNome}
-                            onChange={(ev) => {
-                                setFormNome(ev.target.value);
-                            }}
-                        />
+                        <div className={formStyle.item}>
+                            <TextField
+                                className={formStyle.item}
+                                id="outlined-basic"
+                                label="Email"
+                                variant="outlined"
+                                value={formEmail}
+                                onChange={(ev) => {
+                                    setFormEmail(ev.target.value);
+                                }}
+                            />
+                        </div>
                     )}
                     {["funcionario", "medico", "paciente", "consulta"].includes(
                         type
                     ) && (
-                        <TextField
-                            className={formStyle.item}
-                            id="outlined-basic"
-                            label="Email"
-                            variant="outlined"
-                            value={formEmail}
-                            onChange={(ev) => {
-                                setFormEmail(ev.target.value);
-                            }}
-                        />
-                    )}
-                    {["funcionario", "medico", "paciente", "consulta"].includes(
-                        type
-                    ) && (
-                        <TextField
-                            className={formStyle.item}
-                            id="outlined-basic"
-                            label="Telefone"
-                            variant="outlined"
-                            value={formTelefone}
-                            onChange={(ev) => {
-                                setFormTelefone(ev.target.value);
-                            }}
-                        />
+                        <div className={formStyle.item}>
+                            <TextField
+                                className={formStyle.item}
+                                id="outlined-basic"
+                                label="Telefone"
+                                variant="outlined"
+                                value={formTelefone}
+                                onChange={(ev) => {
+                                    setFormTelefone(ev.target.value);
+                                }}
+                            />
+                        </div>
                     )}
                     {["funcionario", "medico", "paciente", "endereco"].includes(
                         type
                     ) && (
-                        <TextField
-                            className={formStyle.item}
-                            id="outlined-basic"
-                            label="CEP"
-                            variant="outlined"
-                            value={formCep}
-                            onChange={(ev) => {
-                                handleSetFormCep(ev.target.value);
-                            }}
-                        />
+                        <div className={formStyle.item}>
+                            <TextField
+                                className={formStyle.item}
+                                id="outlined-basic"
+                                label="CEP"
+                                variant="outlined"
+                                value={formCep}
+                                onChange={(ev) => {
+                                    handleSetFormCep(ev.target.value);
+                                }}
+                            />
+                        </div>
                     )}
                     {["funcionario", "medico", "paciente", "endereco"].includes(
                         type
                     ) && (
-                        <TextField
-                            className={formStyle.item}
-                            id="outlined-basic"
-                            label="Logradouro"
-                            variant="outlined"
-                            value={formLogradouro}
-                            onChange={(ev) => {
-                                setFormLogradouro(ev.target.value);
-                            }}
-                        />
+                        <div className={formStyle.item}>
+                            <TextField
+                                className={formStyle.item}
+                                id="outlined-basic"
+                                label="Logradouro"
+                                variant="outlined"
+                                value={formLogradouro}
+                                onChange={(ev) => {
+                                    setFormLogradouro(ev.target.value);
+                                }}
+                            />
+                        </div>
                     )}
                     {["funcionario", "medico", "paciente", "endereco"].includes(
                         type
                     ) && (
-                        <TextField
-                            className={formStyle.item}
-                            id="outlined-basic"
-                            label="Bairro"
-                            variant="outlined"
-                            value={formBairro}
-                            onChange={(ev) => {
-                                setFormBairro(ev.target.value);
-                            }}
-                        />
+                        <div className={formStyle.item}>
+                            <TextField
+                                className={formStyle.item}
+                                id="outlined-basic"
+                                label="Bairro"
+                                variant="outlined"
+                                value={formBairro}
+                                onChange={(ev) => {
+                                    setFormBairro(ev.target.value);
+                                }}
+                            />
+                        </div>
                     )}
                     {["funcionario", "medico", "paciente", "endereco"].includes(
                         type
                     ) && (
-                        <TextField
-                            className={formStyle.item}
-                            id="outlined-basic"
-                            label="Cidade"
-                            variant="outlined"
-                            value={formCidade}
-                            onChange={(ev) => {
-                                setFormCidade(ev.target.value);
-                            }}
-                        />
+                        <div className={formStyle.item}>
+                            <TextField
+                                className={formStyle.item}
+                                id="outlined-basic"
+                                label="Cidade"
+                                variant="outlined"
+                                value={formCidade}
+                                onChange={(ev) => {
+                                    setFormCidade(ev.target.value);
+                                }}
+                            />
+                        </div>
                     )}
                     {["funcionario", "medico", "paciente", "endereco"].includes(
                         type
                     ) && (
-                        <TextField
-                            className={formStyle.item}
-                            id="outlined-basic"
-                            label="Estado"
-                            variant="outlined"
-                            value={formEstado}
-                            onChange={(ev) => {
-                                setFormEstado(ev.target.value);
-                            }}
-                        />
+                        <div className={formStyle.item}>
+                            <TextField
+                                className={formStyle.item}
+                                id="outlined-basic"
+                                label="Estado"
+                                variant="outlined"
+                                value={formEstado}
+                                onChange={(ev) => {
+                                    setFormEstado(ev.target.value);
+                                }}
+                            />
+                        </div>
                     )}
                     {["funcionario", "medico"].includes(type) && (
                         <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -426,108 +447,128 @@ const GenericForm = ({ type }) => {
                         </MuiPickersUtilsProvider>
                     )}
                     {["funcionario", "medico"].includes(type) && (
-                        <TextField
-                            className={formStyle.item}
-                            id="outlined-basic"
-                            label="Salário"
-                            variant="outlined"
-                            value={formSalario}
-                            onChange={(ev) => {
-                                setFormSalario(ev.target.value);
-                            }}
-                        />
+                        <div className={formStyle.item}>
+                            <TextField
+                                className={formStyle.item}
+                                id="outlined-basic"
+                                label="Salário"
+                                variant="outlined"
+                                value={formSalario}
+                                onChange={(ev) => {
+                                    setFormSalario(ev.target.value);
+                                }}
+                            />
+                        </div>
                     )}
                     {["funcionario", "medico"].includes(type) && (
-                        <TextField
-                            className={formStyle.item}
-                            id="outlined-basic"
-                            type="password"
-                            label="Senha"
-                            variant="outlined"
-                            value={formSenha}
-                            onChange={(ev) => {
-                                setFormSenha(ev.target.value);
-                            }}
-                        />
+                        <div className={formStyle.item}>
+                            <TextField
+                                className={formStyle.item}
+                                id="outlined-basic"
+                                type="password"
+                                label="Senha"
+                                variant="outlined"
+                                value={formSenha}
+                                onChange={(ev) => {
+                                    setFormSenha(ev.target.value);
+                                }}
+                            />
+                        </div>
                     )}
                     {["funcionario", "medico"].includes(type) && isMedico && (
-                        <TextField
-                            className={formStyle.item}
-                            id="outlined-basic"
-                            label="Especialidade"
-                            variant="outlined"
-                            value={formEspecialidade}
-                            onChange={(ev) => {
-                                setFormEspecialidade(ev.target.value);
-                            }}
-                        />
+                        <div className={formStyle.item}>
+                            <TextField
+                                className={formStyle.item}
+                                id="outlined-basic"
+                                label="Especialidade"
+                                variant="outlined"
+                                value={formEspecialidade}
+                                onChange={(ev) => {
+                                    setFormEspecialidade(ev.target.value);
+                                }}
+                            />
+                        </div>
                     )}
                     {["funcionario", "medico"].includes(type) && isMedico && (
-                        <TextField
-                            className={formStyle.item}
-                            id="outlined-basic"
-                            label="CRM"
-                            variant="outlined"
-                            value={formCrm}
-                            onChange={(ev) => {
-                                setFormCrm(ev.target.value);
-                            }}
-                        />
+                        <div className={formStyle.item}>
+                            <TextField
+                                className={formStyle.item}
+                                id="outlined-basic"
+                                label="CRM"
+                                variant="outlined"
+                                value={formCrm}
+                                onChange={(ev) => {
+                                    setFormCrm(ev.target.value);
+                                }}
+                            />
+                        </div>
                     )}
                     {["paciente"].includes(type) && (
-                        <TextField
-                            className={formStyle.item}
-                            id="outlined-basic"
-                            label="Peso"
-                            variant="outlined"
-                            value={formPeso}
-                            onChange={(ev) => {
-                                setFormPeso(ev.target.value);
-                            }}
-                        />
+                        <div className={formStyle.item}>
+                            <TextField
+                                className={formStyle.item}
+                                id="outlined-basic"
+                                label="Peso"
+                                variant="outlined"
+                                value={formPeso}
+                                onChange={(ev) => {
+                                    setFormPeso(ev.target.value);
+                                }}
+                            />
+                        </div>
                     )}
                     {["paciente"].includes(type) && (
-                        <TextField
-                            className={formStyle.item}
-                            id="outlined-basic"
-                            label="Altura"
-                            variant="outlined"
-                            value={formAltura}
-                            onChange={(ev) => {
-                                setFormAltura(ev.target.value);
-                            }}
-                        />
+                        <div className={formStyle.item}>
+                            <TextField
+                                className={formStyle.item}
+                                id="outlined-basic"
+                                label="Altura"
+                                variant="outlined"
+                                value={formAltura}
+                                onChange={(ev) => {
+                                    setFormAltura(ev.target.value);
+                                }}
+                            />
+                        </div>
                     )}
                     {["paciente"].includes(type) && (
-                        <TextField
-                            className={formStyle.item}
-                            id="outlined-basic"
-                            label="Tipo sanguíneo"
-                            variant="outlined"
-                            value={formTipoSanguineo}
-                            onChange={(ev) => {
-                                setFormTipoSanguineo(ev.target.value);
-                            }}
-                        />
+                        <div className={formStyle.item}>
+                            <TextField
+                                className={formStyle.item}
+                                id="outlined-basic"
+                                label="Tipo sanguíneo"
+                                variant="outlined"
+                                value={formTipoSanguineo}
+                                onChange={(ev) => {
+                                    setFormTipoSanguineo(ev.target.value);
+                                }}
+                            />
+                        </div>
                     )}
                     {["funcionario", "medico"].includes(type) && (
-                        <FormControlLabel
-                            control={
-                                <Checkbox
-                                    checked={isMedico}
-                                    onChange={() =>
-                                        handleSetIsMedico(!isMedico)
-                                    }
-                                    name="checkedB"
-                                    color="primary"
-                                />
-                            }
-                            label="Médico"
-                        />
+                        <div className={formStyle.item}>
+                            <FormControlLabel
+                                control={
+                                    <Checkbox
+                                        checked={isMedico}
+                                        onChange={() =>
+                                            handleSetIsMedico(!isMedico)
+                                        }
+                                        name="checkedB"
+                                        color="primary"
+                                    />
+                                }
+                                label="Médico"
+                            />
+                        </div>
                     )}
                 </div>
                 <div className={formStyle.buttons}>
-                    <Button variant="outlined" onClick={() => {}}>
+                    <Button
+                        variant="outlined"
+                        style={{ marginRight: "30px" }}
+                        onClick={() => {}}
+                    >
                         Limpar
                     </Button>
                     <Button variant="outlined" onClick={handleSendClick}>
