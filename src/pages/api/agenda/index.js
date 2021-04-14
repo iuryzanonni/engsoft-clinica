@@ -4,9 +4,14 @@ async function GetAgenda(request, response) {
     let results;
     try {
         results = await database
-            .select("agenda.*", "medico.*", "pessoa.nome as nomemedico")
+            .select(
+                "agenda.*",
+                "medico.*",
+                "pessoa.nome as nomemedico",
+                "agenda.codigo as codigo"
+            )
             .from("agenda")
-            .join("medico", "agenda.codigomedico", "medico.codigo")
+            .join("medico", "agenda.codigoMedico", "medico.codigo")
             .join("pessoa", "pessoa.codigo", "medico.codigo");
         return response.send(results);
     } catch (error) {
