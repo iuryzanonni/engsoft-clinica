@@ -80,11 +80,6 @@ export const defaultStyles = makeStyles((theme) => ({
             transform: "translateX(0)",
         },
     },
-    input: {
-        justifyItems: "center",
-        padding: "25px",
-        width: "350px",
-    },
     section: {
         width: "50vw",
     },
