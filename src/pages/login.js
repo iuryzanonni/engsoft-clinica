@@ -7,6 +7,9 @@ import Header from "../components/header";
 import MySnackBar from "../components/snackBar";
 import { snackBarSeverity } from "../helper";
 import { defaultStyles } from "../styles";
+import { login } from '../api-front'
+
+
 
 export const getServerSideProps = withIronSession(
     async ({ req, res }) => {
@@ -43,14 +46,9 @@ const SignInPage = ({ theme, user, darkMode, setDarkMode }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const response = await login(email, password);
 
-        const response = await fetch("http://localhost:3000/api/sessions", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email, password }),
-        });
-
-        if (response.ok) {
+        if (response) {
             setSnackBarMessage("Logado com sucesso");
             setSeveritySnackBar(snackBarSeverity.SUCCESS);
             setIsOpenSnackBar(true);

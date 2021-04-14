@@ -28,4 +28,20 @@ const post = async (address, data) => {
         });
 };
 
-export { get, post };
+const login = async (email, password) => {
+    try {
+        const url = "/sessions";
+        let response = await axios.post(`${baseUrl}${url}`, { email, password });
+
+        if (response.status === 201) {
+            return true;
+        }
+        return false;
+    } catch (ex) {
+        console.log("ERROR")
+        console.log(ex);
+        return false;
+    }
+}
+
+export { baseUrl, get, post, login };
