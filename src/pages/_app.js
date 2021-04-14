@@ -26,20 +26,22 @@ const App = ({ Component, pageProps, user }) => {
     const theme = darkMode ? darkTheme : lightTheme;
     console.log(user);
     return (
-        <ThemeProvider theme={theme}>
-            <div style={{ position: "relative", height: "100vh" }}>
-                <CssBaseline />
-                <div style={{ paddingBottom: "130px" }}>
-                    <Component
-                        {...pageProps}
-                        theme={theme}
-                        darkMode={darkMode}
-                        setDarkMode={setDarkMode}
-                    />
+        <NoSsr>
+            <ThemeProvider theme={theme}>
+                <div style={{ position: "relative", height: "100vh" }}>
+                    <CssBaseline />
+                    <div style={{ paddingBottom: "130px" }}>
+                        <Component
+                            {...pageProps}
+                            theme={theme}
+                            darkMode={darkMode}
+                            setDarkMode={setDarkMode}
+                        />
+                    </div>
+                    <Footer />
                 </div>
-                <Footer />
-            </div>
-        </ThemeProvider>
+            </ThemeProvider>
+        </NoSsr>
     );
 };
 
