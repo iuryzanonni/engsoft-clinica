@@ -6,7 +6,7 @@ async function GetMedico(request, response) {
         results = await database("medico")
             .join("pessoa", "medico.codigo", "pessoa.codigo")
             .select("nome")
-            .where("medico.especialidade", request.body.especialidade);
+            .where("medico.especialidade", request.query.especialidade);
 
         return response.send(results);
     } catch (error) {
