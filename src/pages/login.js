@@ -5,6 +5,30 @@ import { defaultStyles } from "../styles";
 import { Button, Grid, TextField, Typography } from "@material-ui/core";
 import MySnackBar from '../components/snackBar';
 import { snackBarSeverity } from '../helper'
+import { withIronSession } from "next-iron-session";
+
+
+export const getServerSideProps = withIronSession(
+    async ({ req, res }) => {
+        const user = req.session.get("user");
+
+        if (!user) {
+            return { props: {} };
+        }
+        req.session.destroy()
+        return {
+            props: {},
+        };
+    },
+    {
+        cookieName: "MYSITECOOKIE",
+        cookieOptions: {
+            secure: process.env.NODE_ENV === "production" ? true : false,
+        },
+        password: process.env.APPLICATION_SECRET,
+    }
+);
+
 
 
 const SignInPage = () => {

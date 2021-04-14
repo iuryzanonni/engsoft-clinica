@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import DateFnsUtils from "@date-io/date-fns";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -6,6 +6,9 @@ import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 import Button from "@material-ui/core/Button";
+import Switch from "@material-ui/core/Switch";
+import Checkbox from "@material-ui/core/Checkbox";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { post, get } from "../api-front";
 import {
     MuiPickersUtilsProvider,
@@ -44,7 +47,7 @@ const GenericForm = ({ type }) => {
                     senha_hash: formSenha,
                     crm: formCrm,
                     especialidade: formEspecialidade,
-                    isMedico: type === "medico" ? true : false,
+                    isMedico: isMedico,
                 });
                 break;
             case "paciente":
@@ -65,10 +68,32 @@ const GenericForm = ({ type }) => {
         }
     };
 
+    const handleSetFormCep = (value) => {
+        setFormCep(value);
+        if (value && value.replace("-", "").length === 8) {
+            get(`endereco/${value.replace("-", "")}`).then((result) => {
+                if (result && result[0]) {
+                    console.log(result);
+                    setFormLogradouro(result[0].logradouro);
+                    setFormBairro(result[0].bairro);
+                    setFormCidade(result[0].cidade);
+                    setFormEstado(result[0].estado);
+                }
+            });
+        }
+    };
+
+    const handleSetIsMedico = (value) => {
+        setIsMedico(value);
+    };
+
     const handleSetFormSelectEspecialidade = (value) => {
         setFormSelectEspecialidade(value);
-        // busca no back as options
-        setOptionsMedico([{ name: "teste", value: "yesye" }]);
+        get("especialidade/medicos", { especialidade: value }).then(
+            (result) => {
+                setOptionsMedico(result);
+            }
+        );
     };
 
     const handleSetFormDataConsulta = (value) => {
@@ -98,15 +123,18 @@ const GenericForm = ({ type }) => {
     const [formPeso, setFormPeso] = useState("");
     const [formAltura, setFormAltura] = useState("");
     const [formTipoSanguineo, setFormTipoSanguineo] = useState("");
-    const [optionsEspecialidade, setOptionsEspecialidade] = useState([
-        { name: "teste", value: "yesye" },
-    ]);
+    const [optionsEspecialidade, setOptionsEspecialidade] = useState([]);
     const [optionsMedico, setOptionsMedico] = useState([]);
     const [optionsHour, setOptionsHour] = useState([]);
+    const [isMedico, setIsMedico] = useState(false);
+
+    useEffect(() => {
+        get("especialidade").then((result) => setOptionsEspecialidade(result));
+    }, []);
 
     return (
         <div className={formStyle.default}>
-            <div>
+            <div className={formStyle.box}>
                 {["consulta"].includes(type) && (
                     <FormControl className={formStyle.item}>
                         <InputLabel>Especialidade</InputLabel>
@@ -122,8 +150,11 @@ const GenericForm = ({ type }) => {
                             }}
                         >
                             {optionsEspecialidade.map((option) => (
-                                <MenuItem id={option.name} value={option.value}>
-                                    {option.name}
+                                <MenuItem
+                                    id={option.especialidade}
+                                    value={option.especialidade}
+                                >
+                                    {option.especialidade}
                                 </MenuItem>
                             ))}
                         </Select>
@@ -141,8 +172,8 @@ const GenericForm = ({ type }) => {
                             }}
                         >
                             {optionsMedico.map((option) => (
-                                <MenuItem id={option.name} value={option.value}>
-                                    {option.name}
+                                <MenuItem id={option.nome} value={option.nome}>
+                                    {option.nome}
                                 </MenuItem>
                             ))}
                         </Select>
@@ -178,8 +209,8 @@ const GenericForm = ({ type }) => {
                             }}
                         >
                             {optionsHour.map((option) => (
-                                <MenuItem id={option.name} value={option.value}>
-                                    {option.name}
+                                <MenuItem id={option} value={option}>
+                                    {option}
                                 </MenuItem>
                             ))}
                         </Select>
@@ -237,7 +268,7 @@ const GenericForm = ({ type }) => {
                         variant="outlined"
                         value={formCep}
                         onChange={(ev) => {
-                            setFormCep(ev.target.value);
+                            handleSetFormCep(ev.target.value);
                         }}
                     />
                 )}
@@ -339,7 +370,7 @@ const GenericForm = ({ type }) => {
                         }}
                     />
                 )}
-                {["medico"].includes(type) && (
+                {["funcionario", "medico"].includes(type) && isMedico && (
                     <TextField
                         className={formStyle.item}
                         id="outlined-basic"
@@ -351,7 +382,7 @@ const GenericForm = ({ type }) => {
                         }}
                     />
                 )}
-                {["medico"].includes(type) && (
+                {["funcionario", "medico"].includes(type) && isMedico && (
                     <TextField
                         className={formStyle.item}
                         id="outlined-basic"
@@ -397,6 +428,19 @@ const GenericForm = ({ type }) => {
                         onChange={(ev) => {
                             setFormTipoSanguineo(ev.target.value);
                         }}
+                    />
+                )}
+                {["funcionario", "medico"].includes(type) && (
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                checked={isMedico}
+                                onChange={() => handleSetIsMedico(!isMedico)}
+                                name="checkedB"
+                                color="primary"
+                            />
+                        }
+                        label="Médico"
                     />
                 )}
             </div>
