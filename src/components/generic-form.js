@@ -76,7 +76,7 @@ const GenericForm = ({ type }) => {
                         });
                     break;
                 case "paciente":
-                    post("paciente", {
+                    await post("paciente", {
                         bairro: formBairro,
                         cep: formCep,
                         cidade: formCidade,
@@ -88,7 +88,11 @@ const GenericForm = ({ type }) => {
                         peso: formPeso,
                         altura: formAltura.replace(",", "."),
                         tipo_sanguineo: formTipoSanguineo,
-                    });
+                    })
+                        .then(() => setSuccessSnackBar())
+                        .catch((error) => {
+                            setErrorSnackbar();
+                        });
                     break;
                 case "endereco":
                     await post("endereco", {

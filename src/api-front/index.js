@@ -36,26 +36,26 @@ const login = async (email, password) => {
             password,
         });
 
-        console.log("RESPONSE")
-        console.log(response)
+        console.log("RESPONSE");
+        console.log(response);
         if (response.status === 201) {
             return {
                 status: true,
-                message: ""
+                message: "",
             };
         }
         return {
             status: false,
-            message: response.data
+            message: response.data,
         };
     } catch (ex) {
-        console.log(ex.response)
-        console.log(ex.request)
-        console.log("LOGIN ERROR")
+        console.log(ex.response);
+        console.log(ex.request);
+        console.log("LOGIN ERROR");
         console.log(ex);
         return {
             status: false,
-            message: "Senha incorreta"
+            message: "Senha incorreta",
         };
     }
 };
