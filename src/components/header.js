@@ -80,7 +80,7 @@ const Header = ({ theme, darkMode, toggleDarkMode, user }) => {
                         </>
                     )}
                     <Link href="/login">
-                        <Button style={style.loginButton}>Login</Button>
+                        <Button style={style.loginButton}>{user ? "Logout" : "Login"}</Button>
                     </Link>
                     <WbSunnyIcon style={style.title} />
                     <Switch
