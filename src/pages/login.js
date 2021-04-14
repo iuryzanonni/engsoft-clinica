@@ -48,13 +48,13 @@ const SignInPage = ({ theme, user, darkMode, setDarkMode }) => {
         e.preventDefault();
         const response = await login(email, password);
 
-        if (response) {
+        if (response.status) {
             setSnackBarMessage("Logado com sucesso");
             setSeveritySnackBar(snackBarSeverity.SUCCESS);
             setIsOpenSnackBar(true);
             return router.push("/");
         } else {
-            setSnackBarMessage("Erro no login");
+            setSnackBarMessage(response.message);
             setSeveritySnackBar(snackBarSeverity.ERROR);
             setIsOpenSnackBar(true);
         }

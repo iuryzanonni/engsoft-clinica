@@ -20,11 +20,12 @@ export default withIronSession(
                     return res.status(201).send("🤩 🤩");
                 }
 
-                return res.status(403).send("Access Denied!🔑 🔑 ");
+                return res.status(403).send(loginResponse.message);
             }
 
             return res.status(404).send("🤪 🤪 🤪");
         } catch (ex) {
+            console.error("Error ao verificar login");
             console.error(ex);
             return res.status(500).send(`🤯 🤯 \n\n\n${ex}`);
         }
@@ -44,6 +45,7 @@ async function GetLogin(password, email) {
         email: "",
         authentication: false,
         isMedico: false,
+        message: ""
     };
     let results;
     let selectClause =
@@ -62,6 +64,12 @@ async function GetLogin(password, email) {
             model.codigo = results[0].codigo;
             model.email = results[0].email;
             model.authentication = results[0].auth ? true : false;
+            model.message = model.authentication ? "" : "Senha inválida";
+        } else {
+            model.message = "Email invalido!";
+            model.authentication = false;
+            model.isMedico = false;
+            return model;
         }
 
         results = await database("medico").where("codigo", model.codigo);
