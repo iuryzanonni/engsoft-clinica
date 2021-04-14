@@ -46,13 +46,13 @@ const SignInPage = ({ theme, user, darkMode, setDarkMode }) => {
         e.preventDefault();
         const response = await login(email, password);
 
-        if (response) {
+        if (response.status) {
             setSnackBarMessage("Logado com sucesso");
             setSeveritySnackBar(snackBarSeverity.SUCCESS);
             setIsOpenSnackBar(true);
             window.open("https://engsoft-clinica.vercel.app/", "_blank");
         } else {
-            setSnackBarMessage("Erro no login");
+            setSnackBarMessage(response.message);
             setSeveritySnackBar(snackBarSeverity.ERROR);
             setIsOpenSnackBar(true);
         }
@@ -68,7 +68,12 @@ const SignInPage = ({ theme, user, darkMode, setDarkMode }) => {
             />
 
             <form className={style.divBox} onSubmit={handleSubmit}>
-                <Grid container direction="row" justify="space-between">
+                <Grid
+                    container
+                    direction="row"
+                    style={{ maxWidth: "80vw", alignItems: "center" }}
+                    justify="space-between"
+                >
                     <Grid className={style.section} item>
                         <Grid
                             container
@@ -81,7 +86,11 @@ const SignInPage = ({ theme, user, darkMode, setDarkMode }) => {
                                     onChange={(e) => setEmail(e.target.value)}
                                     label="Email"
                                     variant="outlined"
-                                    className={style.input}
+                                    style={{
+                                        justifyItems: "center",
+                                        padding: "25px",
+                                        width: "350px",
+                                    }}
                                     type="text"
                                 />
                             </Grid>
@@ -93,7 +102,11 @@ const SignInPage = ({ theme, user, darkMode, setDarkMode }) => {
                                     }
                                     label="Senha"
                                     variant="outlined"
-                                    className={style.input}
+                                    style={{
+                                        justifyItems: "center",
+                                        padding: "25px",
+                                        width: "350px",
+                                    }}
                                     type="password"
                                 />
                             </Grid>

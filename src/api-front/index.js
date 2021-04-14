@@ -36,14 +36,25 @@ const login = async (email, password) => {
             password,
         });
 
+        console.log("RESPONSE")
+        console.log(response)
         if (response.status === 201) {
-            return true;
+            return {
+                status: true,
+                message: ""
+            };
         }
-        return false;
+        return {
+            status: false,
+            message: response.data
+        };
     } catch (ex) {
-        console.log("ERROR");
+        console.log("LOGIN ERROR")
         console.log(ex);
-        return false;
+        return {
+            status: false,
+            message: "Senha incorreta"
+        };
     }
 };
 
