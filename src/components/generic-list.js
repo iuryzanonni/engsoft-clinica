@@ -18,7 +18,18 @@ const GenericList = ({ type }) => {
                 bairro: row.bairro ? row.bairro : "",
                 cidade: row.cidade ? row.cidade : "",
                 estado: row.estado ? row.estado : "",
-                dataInicio: row.data_contrato ? row.data_contrato : "",
+                dataInicio: row.data_contrato
+                    ? `${new Date(row.data_contrato).getFullYear()}-${
+                          new Date(row.data_contrato).getMonth() + 1 < 10
+                              ? "0" +
+                                (new Date(row.data_contrato).getMonth() + 1)
+                              : new Date(row.data_contrato).getMonth() + 1
+                      }-${
+                          new Date(row.data_contrato).getDate() < 10
+                              ? "0" + new Date(row.data_contrato).getDate()
+                              : new Date(row.data_contrato).getDate()
+                      }`
+                    : "",
                 salario: row.salario ? row.salario : "",
                 id:
                     type !== "endereco"
@@ -33,9 +44,19 @@ const GenericList = ({ type }) => {
                 peso: row.peso ? row.peso : "",
                 altura: row.altura ? row.altura : "",
                 tipoSanguineo: row.tipo_sanguineo ? row.tipo_sanguineo : "",
-                medico: row.crm ? row.crm : "",
-                dataConsulta: row.crm ? row.crm : "",
-                hora: row.crm ? row.crm : "",
+                medico: row.codigoMedico ? row.codigoMedico : "",
+                dataConsulta: row.data
+                    ? `${new Date(row.data).getFullYear()}-${
+                          new Date(row.data).getMonth() + 1 < 10
+                              ? "0" + (new Date(row.data).getMonth() + 1)
+                              : new Date(row.data).getMonth() + 1
+                      }-${
+                          new Date(row.data).getDate() < 10
+                              ? "0" + new Date(row.data).getDate()
+                              : new Date(row.data).getDate()
+                      }`
+                    : "",
+                hora: row.hora ? row.hora.slice(0, 5) : "",
             };
         });
     };
@@ -110,10 +131,10 @@ const GenericList = ({ type }) => {
                     flex: 1,
                 },
                 { field: "medico", headerName: "Médico", flex: 1 },
-                { field: "dataConsulta", headerName: "Bairro", flex: 1 },
-                { field: "hora", headerName: "Cidade", flex: 1 },
+                { field: "dataConsulta", headerName: "Data", flex: 1 },
+                { field: "hora", headerName: "Hora", flex: 1 },
                 { field: "nome", headerName: "Nome", flex: 1 },
-                { field: "Email", headerName: "Email", flex: 1 },
+                { field: "email", headerName: "Email", flex: 1 },
                 { field: "telefone", headerName: "Telefone", flex: 1 },
             ];
             break;
