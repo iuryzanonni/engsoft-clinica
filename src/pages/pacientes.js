@@ -41,7 +41,7 @@ const Pacientes = ({ theme, user, darkMode, setDarkMode }) => {
 
             {user && (
                 <Button onClick={() => setIsCadastro(!isCadastro)}>
-                    {isCadastro ? "Cancelar" : "Adicionar novo"}
+                    {isCadastro ? "Voltar" : "Adicionar novo"}
                 </Button>
             )}
 

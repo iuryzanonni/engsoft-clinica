@@ -40,7 +40,7 @@ const Enderecos = ({ theme, user, darkMode, setDarkMode }) => {
             />
 
             <Button onClick={() => setIsCadastro(!isCadastro)}>
-                {isCadastro ? "Cancelar" : "Adicionar novo"}
+                {isCadastro ? "Voltar" : "Adicionar novo"}
             </Button>
 
             {user && !isCadastro && <GenericList type="endereco" />}
