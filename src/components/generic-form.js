@@ -215,11 +215,11 @@ const GenericForm = ({ type }) => {
                     {["consulta"].includes(type) && (
                         <div className={formStyle.item}>
                             <FormControl className={formStyle.item}>
-                                <InputLabel style={{ minWidth: "200px" }}>
+                                <InputLabel className={formStyle.item}>
                                     Especialidade
                                 </InputLabel>
                                 <Select
-                                    autoWidth={true}
+                                    className={formStyle.item}
                                     label="Especialidade"
                                     id="demo-simple-select"
                                     value={formSelectEspecialidade}
@@ -230,14 +230,12 @@ const GenericForm = ({ type }) => {
                                     }}
                                 >
                                     {optionsEspecialidade.map((option) => (
-                                        <div className={formStyle.item}>
-                                            <MenuItem
-                                                id={option.especialidade}
-                                                value={option.especialidade}
-                                            >
-                                                {option.especialidade}
-                                            </MenuItem>
-                                        </div>
+                                        <MenuItem
+                                            id={option.especialidade}
+                                            value={option.especialidade}
+                                        >
+                                            {option.especialidade}
+                                        </MenuItem>
                                     ))}
                                 </Select>
                             </FormControl>
@@ -248,6 +246,7 @@ const GenericForm = ({ type }) => {
                             <FormControl className={formStyle.item}>
                                 <InputLabel>Médico</InputLabel>
                                 <Select
+                                    className={formStyle.item}
                                     label="Medico"
                                     id="demo-simple-select"
                                     value={formMedico}
