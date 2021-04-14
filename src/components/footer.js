@@ -28,7 +28,7 @@ const Footer = () => {
                 disney corp {new Date().getFullYear()}
             </>
             <span>
-                <Typography variant="p" marked="left" gutterBottom>
+                <Typography variant="span" marked="left" gutterBottom>
                     made with (◍•ᴗ•◍)❤️ by savio, iury, lucca and leo
                 </Typography>
                 <br />

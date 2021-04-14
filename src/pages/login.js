@@ -30,7 +30,7 @@ const SignInPage = () => {
             setSnackBarMessage("Logado com sucesso");
             setSeveritySnackBar(snackBarSeverity.SUCCESS)
             setIsOpenSnackBar(true)
-            return router.push("/main");
+            return router.push("/");
         } else {
             setSnackBarMessage("Erro no login");
             setSeveritySnackBar(snackBarSeverity.ERROR)

@@ -34,9 +34,14 @@ const GenericList = ({ type }) => {
     };
 
     useEffect(() => {
-        get(type).then((resp) =>
-            resp ? setTableRows(parseRows(resp, type)) : null
-        );
+        if (type === "consulta") {
+            get("agenda").then((resp) =>
+                resp ? setTableRows(parseRows(resp, type)) : null
+            );
+        } else
+            get(type).then((resp) =>
+                resp ? setTableRows(parseRows(resp, type)) : null
+            );
     }, []);
 
     let columns = [];
